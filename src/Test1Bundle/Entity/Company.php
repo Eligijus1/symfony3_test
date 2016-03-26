@@ -2,45 +2,67 @@
 
 namespace Test1Bundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Company
+ *
+ * @ORM\Table(name="company")
+ * @ORM\Entity
  */
 class Company
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=1000, nullable=true)
      */
     private $description;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="create_by", type="integer", nullable=false)
      */
     private $createBy;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
     private $createDate;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="modify_by", type="integer", nullable=true)
      */
     private $modifyBy;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="modify_date", type="datetime", nullable=true)
      */
     private $modifyDate;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
 
 
     /**
@@ -197,4 +219,3 @@ class Company
         return $this->id;
     }
 }
-

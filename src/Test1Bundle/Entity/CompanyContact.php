@@ -2,50 +2,77 @@
 
 namespace Test1Bundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * CompanyContact
+ *
+ * @ORM\Table(name="company_contact", indexes={@ORM\Index(name="fk_company_contact_to_company", columns={"company_id"})})
+ * @ORM\Entity
  */
 class CompanyContact
 {
     /**
      * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      */
     private $firstName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      */
     private $lastName;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="create_by", type="integer", nullable=false)
      */
     private $createBy;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
     private $createDate;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="modify_by", type="integer", nullable=true)
      */
     private $modifyBy;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="modify_date", type="datetime", nullable=true)
      */
     private $modifyDate;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \Test1Bundle\Entity\Company
+     *
+     * @ORM\ManyToOne(targetEntity="Test1Bundle\Entity\Company")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * })
      */
     private $company;
+
 
 
     /**
@@ -226,4 +253,3 @@ class CompanyContact
         return $this->company;
     }
 }
-
