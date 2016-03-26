@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Test1Bundle\Entity\CompanyContact" table="company_contact">
+    <indexes>
+      <index name="fk_company_contact_to_company" columns="company_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="firstName" type="string" column="first_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lastName" type="string" column="last_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createBy" type="integer" column="create_by" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="createDate" type="datetime" column="create_date" nullable="false"/>
+    <field name="modifyBy" type="integer" column="modify_by" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="modifyDate" type="datetime" column="modify_date" nullable="true"/>
+    <many-to-one field="company" target-entity="Company" fetch="LAZY">
+      <join-columns>
+        <join-column name="company_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
