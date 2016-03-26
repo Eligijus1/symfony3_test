@@ -1,0 +1,3 @@
+test1_homepage:
+    path:     /test1/
+    defaults: { _controller: Test1Bundle:Default:index }
