@@ -1,3 +1,6 @@
 test1_homepage:
-    path:     /test1/
+    path:     /test1
     defaults: { _controller: Test1Bundle:Default:index }
+login:
+    path:     /login
+    defaults: { _controller: Test1Bundle:Security:login }
