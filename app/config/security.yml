@@ -7,30 +7,24 @@ security:
     providers:
         our_db_provider:
             entity:
-                class: AppBundle:User
+                class: Test1Bundle:User
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # order matters! This must be before the ^/ firewall
 #        login_firewall:
 #            pattern:   ^/login$
 #            anonymous: ~
 #        secured_area:
 #            pattern:    ^/
 #            form_login: ~
-
         main:
             anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
 
-#            form_login:
-#                login_path: login
-#                check_path: login
-
-
-    # Require the ROLE_ADMIN role for all URLs (except /login URL):
-#    access_control:
-#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/, roles: ROLE_ADMIN }
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_ADMIN }
