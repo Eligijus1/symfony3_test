@@ -1,3 +1,7 @@
+test1_user:
+    resource: "@Test1Bundle/Controller/UserController.php"
+    type:     annotation
+
 test1:
     resource: "@Test1Bundle/Resources/config/routing.yml"
     prefix:   /
