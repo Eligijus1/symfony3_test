@@ -1,6 +1,7 @@
 # Resources/config/services.yml
 parameters:
     my_admin_bundle.show_user_listener.class: Test1Bundle\EventListener\MyShowUserListener
+    my_admin_bundle.menu_listener.class: Test1Bundle\EventListener\MyMenuItemListListener
 
 services:
     my_admin_bundle.show_user_listener:
@@ -10,3 +11,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
             - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
+
+    my_admin_bundle.menu_listener:
+        class: %my_admin_bundle.menu_listener.class%
+        tags:
+            - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
