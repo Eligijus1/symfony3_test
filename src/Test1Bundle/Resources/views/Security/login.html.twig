@@ -10,7 +10,7 @@
         {% endif %}
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            <form action="{{ path('login') }}" method="post">
+            <form action="{{ path('security_login_check') }}" method="post">
                 <div class="form-group has-feedback">
                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Email"/>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -19,6 +19,7 @@
                     <input type="password" id="password" name="_password" class="form-control" placeholder="Password"/>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                 <div class="row">
                     {#
                     <div class="col-xs-8">

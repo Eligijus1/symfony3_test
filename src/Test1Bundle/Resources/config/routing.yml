@@ -1,6 +1,12 @@
 test1_homepage:
     path:     /test1
     defaults: { _controller: Test1Bundle:Default:index }
-login:
+security_login_form:
     path:     /login
     defaults: { _controller: Test1Bundle:Security:login }
+security_logout:
+    path:     /logout
+    defaults: { _controller: Test1Bundle:Security:logout }
+security_login_check:
+   path:     /login_check
+   defaults: { _controller: Test1Bundle:Security:loginCheck }
