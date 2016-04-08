@@ -4,12 +4,13 @@ namespace Test1Bundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Avanzu\AdminThemeBundle\Model\UserInterface as ThemeUser;
 
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Test1Bundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, ThemeUser, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -64,7 +65,7 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER','ROLE_ADMIN');
+        return array('ROLE_USER', 'ROLE_ADMIN');
     }
 
     public function eraseCredentials()
@@ -158,4 +159,36 @@ class User implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
+
+    public function getAvatar()
+    {
+        // TODO: Implement getAvatar() method.
+    }
+
+    public function getName()
+    {
+        return $this->username;
+    }
+
+    public function getMemberSince()
+    {
+        // TODO: Implement getMemberSince() method.
+    }
+
+    public function isOnline()
+    {
+        return true;
+    }
+
+    public function getIdentifier()
+    {
+        return $this->id;
+    }
+
+    public function getTitle()
+    {
+        return $this->username . " " . $this->email;
+    }
+
+
 }

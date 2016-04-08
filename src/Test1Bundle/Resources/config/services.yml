@@ -1,4 +1,12 @@
+# Resources/config/services.yml
+parameters:
+    my_admin_bundle.show_user_listener.class: Test1Bundle\EventListener\MyShowUserListener
+
 services:
-#    test1.example:
-#        class: Test1Bundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    my_admin_bundle.show_user_listener:
+        class: %my_admin_bundle.show_user_listener.class%
+        arguments:
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+            - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }

@@ -10,3 +10,8 @@ security_logout:
 security_login_check:
    path:     /login_check
    defaults: { _controller: Test1Bundle:Security:loginCheck }
+
+avanzu_admin_profile:
+    path: /profile/{userid}/
+avanzu_admin_logout:
+    path: /logout
