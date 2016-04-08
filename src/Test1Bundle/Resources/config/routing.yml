@@ -1,5 +1,5 @@
 test1_homepage:
-    path:     /test1
+    path:     /
     defaults: { _controller: Test1Bundle:Default:index }
 security_login_form:
     path:     /login
