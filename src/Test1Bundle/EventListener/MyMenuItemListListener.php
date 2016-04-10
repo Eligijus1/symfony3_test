@@ -26,16 +26,16 @@ class MyMenuItemListListener
     protected function getMenu(Request $request) {
         // Build your menu here by constructing a MenuItemModel array
         $menuItems = array(
-            $blog = new MenuItemModel('ItemId', 'ItemDisplayName', 'item_symfony_route', array(/* options */), 'iconclasses fa fa-plane')
+            $blog = new MenuItemModel('ItemId', 'ItemDisplayName', 'user_index', array(/* options */), 'iconclasses fa fa-plane')
         );
 
         // Add some children
 
         // A child with an icon
-        $blog->addChild(new MenuItemModel('ChildOneItemId', 'ChildOneDisplayName', 'child_1_route', array(), 'fa fa-rss-square'));
+        //$blog->addChild(new MenuItemModel('ChildOneItemId', 'ChildOneDisplayName', 'child_1_route', array(), 'fa fa-rss-square'));
 
         // A child with default circle icon
-        $blog->addChild(new MenuItemModel('ChildTwoItemId', 'ChildTwoDisplayName', 'child_2_route'));
+        //$blog->addChild(new MenuItemModel('ChildTwoItemId', 'ChildTwoDisplayName', 'child_2_route'));
         return $this->activateByRoute($request->get('_route'), $menuItems);
     }
 
