@@ -9,3 +9,7 @@ test1:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+jmose_command_scheduler:
+    resource: "@JMoseCommandSchedulerBundle/Resources/config/routing.yml"
+    prefix:   /
