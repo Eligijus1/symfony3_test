@@ -1,0 +1,64 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block title %} title {% endblock %}
+
+{% block page_title %} Companies list {% endblock %}
+{% block page_subtitle %} {% endblock %}
+
+{% block page_content %}
+    <table class="table table-bordered table-striped" id="companiesDataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Createby</th>
+                <th>Createdate</th>
+                <th>Modifyby</th>
+                <th>Modifydate</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.name }}</a></td>
+                <td>{{ company.description }}</td>
+                <td>{{ company.createBy }}</td>
+                <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ company.modifyBy }}</td>
+                <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ company.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('company_show', { 'id': company.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('company_edit', { 'id': company.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('company_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+    <script>
+        $(function () {
+            $('#companiesDataTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+    </script>
+{% endblock %}
