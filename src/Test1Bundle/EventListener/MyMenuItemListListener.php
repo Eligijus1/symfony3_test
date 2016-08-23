@@ -26,8 +26,8 @@ class MyMenuItemListListener
     protected function getMenu(Request $request) {
         // Build your menu here by constructing a MenuItemModel array
         $menuItems = array(
-            $blog = new MenuItemModel('ItemId', 'Companies list', 'user_index', array(/* options */), 'iconclasses fa fa-industry'),
-            $blog2 = new MenuItemModel('ItemId2', 'Users list', 'user_index', array(/* options */), 'iconclasses fa fa-users')
+            $blog = new MenuItemModel('CompaniesId', 'Companies list', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
+            $blog2 = new MenuItemModel('UsersId', 'Users list', 'user_index', array(/* options */), 'iconclasses fa fa-users')
         );
 
         // Add some children

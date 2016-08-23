@@ -1,3 +1,7 @@
+test1_company:
+    resource: "@Test1Bundle/Controller/CompanyController.php"
+    type:     annotation
+
 test1_user:
     resource: "@Test1Bundle/Controller/UserController.php"
     type:     annotation
