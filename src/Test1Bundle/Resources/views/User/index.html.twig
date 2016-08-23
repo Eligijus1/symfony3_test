@@ -1,14 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
 
-{% block body %}
-    <h1>User list</h1>
+{% block title %} title {% endblock %}
 
-    <table id="example2">
+{% block page_title %} Users {% endblock %}
+{% block page_subtitle %} list {% endblock %}
+
+{% block page_content %}
+
+    <table class="table table-bordered table-striped" id="mainDataTable">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Username</th>
-                <th>Password</th>
                 <th>Email</th>
                 <th>Isactive</th>
                 <th>Actions</th>
@@ -19,7 +22,6 @@
             <tr>
                 <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
                 <td>{{ user.username }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.email }}</td>
                 <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
@@ -46,7 +48,7 @@
 
     <script>
         $(function () {
-            $('#example2').DataTable({
+            $('#mainDataTable').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": false,
