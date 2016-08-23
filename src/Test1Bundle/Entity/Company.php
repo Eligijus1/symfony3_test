@@ -69,8 +69,6 @@ class Company
      */
     private $id;
 
-
-
     /**
      * Set name
      *
