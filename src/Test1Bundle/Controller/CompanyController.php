@@ -2,12 +2,18 @@
 
 namespace Test1Bundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Test1Bundle\Entity\Company;
 use Test1Bundle\Form\CompanyType;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\QueryExpressionVisitor;
 
 /**
  * Company controller.
@@ -21,15 +27,50 @@ class CompanyController extends Controller
      *
      * @Route("/", name="company_index")
      * @Method("GET")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $pageSize = 10;
+
+        // Get entity manager:
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $companies = $em->getRepository('Test1Bundle:Company')->findAll();
+        // Prepare query:
+        $qb = $em->createQueryBuilder();
+        $qb->select("entity");
+        $qb->from("\\Test1Bundle\\Entity\\Company", "entity");
+        //$qb->leftJoin("\\Atlantic\\Warehouse\\Entity\\ContainerInventory", 'ci', Join::LEFT_JOIN,
+         //   'entity.id=ci.bookingNumberContainer');
+        //$qb->andWhere('ci.id is NULL');
+        ///$qb->andWhere('entity.bookingNumber = :bookingNumber');
+        // $qb->setParameter('bookingNumber', $bookingNumberEntity->getId());
+        // $query = $qb->getQuery();
 
+        //
+        $query = $em->createQuery($qb->getQuery()->getDQL());
+
+        //$em->get
+
+        // $companies = $em->getRepository('Test1Bundle:Company')->findAll();
+
+        // Prepare paginator:
+        /** @var Paginator $paginator */
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $pageSize/*limit per page*/
+        );
+
+        // Return prepared list:
         return $this->render('Test1Bundle:company:index.html.twig', array(
-            'companies' => $companies,
+            'companies' => $pagination,
+            'limit_per_page' => $pageSize,
+            'current_page' => $request->query->getInt('page', 1)
         ));
     }
 

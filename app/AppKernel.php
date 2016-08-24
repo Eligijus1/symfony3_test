@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new JMose\CommandSchedulerBundle\JMoseCommandSchedulerBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
