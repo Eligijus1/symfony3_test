@@ -3,6 +3,7 @@
 namespace Test1Bundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,7 +34,11 @@ class CompanyController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $pageSize = 10;
+        // Define
+        $pageSize        = 10;
+        $pageNumber      = $request->query->getInt('page', 1);
+        $pageStartRecord = ($pageNumber * $pageSize) - $pageSize + 1;
+        $pageEndRecord   = ($pageNumber * $pageSize);
 
         // Get entity manager:
         /** @var EntityManager $em */
@@ -44,7 +49,7 @@ class CompanyController extends Controller
         $qb->select("entity");
         $qb->from("\\Test1Bundle\\Entity\\Company", "entity");
         //$qb->leftJoin("\\Atlantic\\Warehouse\\Entity\\ContainerInventory", 'ci', Join::LEFT_JOIN,
-         //   'entity.id=ci.bookingNumberContainer');
+        //   'entity.id=ci.bookingNumberContainer');
         //$qb->andWhere('ci.id is NULL');
         ///$qb->andWhere('entity.bookingNumber = :bookingNumber');
         // $qb->setParameter('bookingNumber', $bookingNumberEntity->getId());
@@ -59,7 +64,8 @@ class CompanyController extends Controller
 
         // Prepare paginator:
         /** @var Paginator $paginator */
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
+        /** @var AbstractPagination $pagination */
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -68,9 +74,11 @@ class CompanyController extends Controller
 
         // Return prepared list:
         return $this->render('Test1Bundle:company:index.html.twig', array(
-            'companies' => $pagination,
-            'limit_per_page' => $pageSize,
-            'current_page' => $request->query->getInt('page', 1)
+            'companies'       => $pagination,
+            'pageSize'        => $pageSize,
+            'pageNumber'      => $pageNumber,
+            'pageStartRecord' => $pageStartRecord,
+            'pageEndRecord'   => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
         ));
     }
 
@@ -83,7 +91,7 @@ class CompanyController extends Controller
     public function newAction(Request $request)
     {
         $company = new Company();
-        $form = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $form    = $this->createForm('Test1Bundle\Form\CompanyType', $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,7 +104,7 @@ class CompanyController extends Controller
 
         return $this->render('Test1Bundle:company:new.html.twig', array(
             'company' => $company,
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
         ));
     }
 
@@ -111,7 +119,7 @@ class CompanyController extends Controller
         $deleteForm = $this->createDeleteForm($company);
 
         return $this->render('Test1Bundle:company:show.html.twig', array(
-            'company' => $company,
+            'company'     => $company,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -125,7 +133,7 @@ class CompanyController extends Controller
     public function editAction(Request $request, Company $company)
     {
         $deleteForm = $this->createDeleteForm($company);
-        $editForm = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $editForm   = $this->createForm('Test1Bundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -137,8 +145,8 @@ class CompanyController extends Controller
         }
 
         return $this->render('Test1Bundle:company:edit.html.twig', array(
-            'company' => $company,
-            'edit_form' => $editForm->createView(),
+            'company'     => $company,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -175,7 +183,6 @@ class CompanyController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('company_delete', array('id' => $company->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

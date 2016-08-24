@@ -56,8 +56,8 @@
                     <div class="col-lg-12">
                         <div class="col-sm-5">
                             <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                                Showing {{ (current_page * limit_per_page) - limit_per_page + 1 }}
-                                to {{ current_page * limit_per_page }}
+                                Showing {{ pageStartRecord }}
+                                to {{ pageEndRecord }}
                                 of
                                 {{ companies.getTotalItemCount }} entries
                             </div>
@@ -65,7 +65,7 @@
 
                         <div class="col-sm-7">
                             <div class="dataTables_paginate paging_simple_numbers">
-                                {{ knp_pagination_render(companies,'Test1Bundle:Pagination:base-layout.html.twig') }}
+                                {{ knp_pagination_render(companies) }}
                             </div>
                         </div>
                     </div>
