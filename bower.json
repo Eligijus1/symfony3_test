@@ -1,0 +1,17 @@
+{
+  "name": "symfony3_test",
+  "homepage": "https://github.com/Eligijus1/symfony3_test",
+  "authors": [
+    "Eligijus Stugys <eligijus.stugys@nfq.lt>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
