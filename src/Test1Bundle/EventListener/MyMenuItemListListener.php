@@ -10,7 +10,8 @@ class MyMenuItemListListener
     /**
      * @param SidebarMenuEvent $event
      */
-    public function onSetupMenu(SidebarMenuEvent $event) {
+    public function onSetupMenu(SidebarMenuEvent $event)
+    {
 
         $request = $event->getRequest();
 
@@ -23,11 +24,13 @@ class MyMenuItemListListener
      * @param Request $request
      * @return mixed
      */
-    protected function getMenu(Request $request) {
+    protected function getMenu(Request $request)
+    {
         // Build your menu here by constructing a MenuItemModel array
         $menuItems = array(
             $blog = new MenuItemModel('CompaniesId', 'Companies list', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
-            $blog2 = new MenuItemModel('UsersId', 'Users list', 'user_index', array(/* options */), 'iconclasses fa fa-users')
+            $blog2 = new MenuItemModel('UsersId', 'Users list', 'user_index', array(/* options */), 'iconclasses fa fa-users'),
+            new MenuItemModel('CommandSchedulerId', 'Command scheduler', 'jmose_command_scheduler_list', array(/* options */), 'iconclasses fa fa-clock-o')
         );
 
         // Add some children
@@ -38,6 +41,8 @@ class MyMenuItemListListener
         // A child with default circle icon
         //$blog->addChild(new MenuItemModel('ChildTwoItemId', 'ChildTwoDisplayName', 'child_2_route'));
         return $this->activateByRoute($request->get('_route'), $menuItems);
+
+        // https://almsaeedstudio.com/themes/AdminLTE/pages/UI/icons.html
     }
 
     /**
@@ -45,14 +50,14 @@ class MyMenuItemListListener
      * @param MenuItemModel[] $items
      * @return mixed
      */
-    protected function activateByRoute($route, $items) {
+    protected function activateByRoute($route, $items)
+    {
 
-        foreach($items as $item) {
-            if($item->hasChildren()) {
+        foreach ($items as $item) {
+            if ($item->hasChildren()) {
                 $this->activateByRoute($route, $item->getChildren());
-            }
-            else {
-                if($item->getRoute() == $route) {
+            } else {
+                if ($item->getRoute() == $route) {
                     $item->setIsActive(true);
                 }
             }
