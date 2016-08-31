@@ -26,23 +26,28 @@ class MyMenuItemListListener
      */
     protected function getMenu(Request $request)
     {
-        // Build your menu here by constructing a MenuItemModel array
+        // Build your menu here by constructing a MenuItemModel array:
         $menuItems = array(
             $blog = new MenuItemModel('CompaniesId', 'Companies list', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
-            $blog2 = new MenuItemModel('UsersId', 'Users list', 'user_index', array(/* options */), 'iconclasses fa fa-users'),
-            new MenuItemModel('CommandSchedulerId', 'Command scheduler', 'jmose_command_scheduler_list', array(/* options */), 'iconclasses fa fa-clock-o')
+            $systemAdministration = new MenuItemModel('SystemAdministrationId', 'System administration', '', array(/* options */), 'iconclasses fa fa-gear'),
         );
 
-        // Add some children
+        // Add some children to "System administration":
+        $systemAdministration->addChild(new MenuItemModel(
+            'UsersId'
+            , 'Users list'
+            , 'user_index'
+            , array(/* options */)
+            , 'iconclasses fa fa-users'));
+        $systemAdministration->addChild(new MenuItemModel(
+            'CommandSchedulerId'
+            , 'Command scheduler'
+            , 'jmose_command_scheduler_list'
+            , array(/* options */)
+            , 'iconclasses fa fa-clock-o'));
 
-        // A child with an icon
-        //$blog->addChild(new MenuItemModel('ChildOneItemId', 'ChildOneDisplayName', 'child_1_route', array(), 'fa fa-rss-square'));
-
-        // A child with default circle icon
-        //$blog->addChild(new MenuItemModel('ChildTwoItemId', 'ChildTwoDisplayName', 'child_2_route'));
+        // Return prepared menu:
         return $this->activateByRoute($request->get('_route'), $menuItems);
-
-        // https://almsaeedstudio.com/themes/AdminLTE/pages/UI/icons.html
     }
 
     /**
