@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Test1Bundle\Entity\Comment;
 use Test1Bundle\Form\CommentType;
 
@@ -56,7 +61,7 @@ class CommentController extends Controller
         );
 
         return $this->render('Test1Bundle:comment:index.html.twig', array(
-            'comments' => $pagination,
+            'comments'        => $pagination,
             'pageSize'        => $pageSize,
             'pageNumber'      => $pageNumber,
             'pageStartRecord' => $pageStartRecord,
@@ -73,7 +78,7 @@ class CommentController extends Controller
     public function newAction(Request $request)
     {
         $comment = new Comment();
-        $form = $this->createForm('Test1Bundle\Form\CommentType', $comment);
+        $form    = $this->createForm('Test1Bundle\Form\CommentType', $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,12 +86,28 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
+            // Creating the ACL:
+            /** @var MutableAclProvider $aclProvider */
+            $aclProvider    = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+            $acl            = $aclProvider->createAcl($objectIdentity);
+
+            // Retrieving the security identity of the currently logged-in user
+            $tokenStorage     = $this->get('security.token_storage');
+            $user             = $tokenStorage->getToken()->getUser();
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+            // Grant owner access
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+            $aclProvider->updateAcl($acl);
+
+            // Show view form:
             return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
         }
 
         return $this->render('Test1Bundle:comment:new.html.twig', array(
             'comment' => $comment,
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
         ));
     }
 
@@ -101,7 +122,7 @@ class CommentController extends Controller
         $deleteForm = $this->createDeleteForm($comment);
 
         return $this->render('Test1Bundle:comment:show.html.twig', array(
-            'comment' => $comment,
+            'comment'     => $comment,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -111,11 +132,21 @@ class CommentController extends Controller
      *
      * @Route("/{id}/edit", name="comment_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Comment $comment
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Comment $comment)
     {
+        $authorizationChecker = $this->get('security.authorization_checker');
+
+        // Check for edit access:
+        if (false === $authorizationChecker->isGranted('EDIT', $comment)) {
+            throw new AccessDeniedException();
+        }
+
         $deleteForm = $this->createDeleteForm($comment);
-        $editForm = $this->createForm('Test1Bundle\Form\CommentType', $comment);
+        $editForm   = $this->createForm('Test1Bundle\Form\CommentType', $comment);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -127,8 +158,8 @@ class CommentController extends Controller
         }
 
         return $this->render('Test1Bundle:comment:edit.html.twig', array(
-            'comment' => $comment,
-            'edit_form' => $editForm->createView(),
+            'comment'     => $comment,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -165,7 +196,6 @@ class CommentController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('comment_delete', array('id' => $comment->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
