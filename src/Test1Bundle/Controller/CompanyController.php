@@ -34,7 +34,7 @@ class CompanyController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // Define
+        // Define paging required variables:
         $pageSize        = 10;
         $pageNumber      = $request->query->getInt('page', 1);
         $pageStartRecord = ($pageNumber * $pageSize) - $pageSize + 1;
@@ -48,19 +48,7 @@ class CompanyController extends Controller
         $qb = $em->createQueryBuilder();
         $qb->select("entity");
         $qb->from("\\Test1Bundle\\Entity\\Company", "entity");
-        //$qb->leftJoin("\\Atlantic\\Warehouse\\Entity\\ContainerInventory", 'ci', Join::LEFT_JOIN,
-        //   'entity.id=ci.bookingNumberContainer');
-        //$qb->andWhere('ci.id is NULL');
-        ///$qb->andWhere('entity.bookingNumber = :bookingNumber');
-        // $qb->setParameter('bookingNumber', $bookingNumberEntity->getId());
-        // $query = $qb->getQuery();
-
-        //
         $query = $em->createQuery($qb->getQuery()->getDQL());
-
-        //$em->get
-
-        // $companies = $em->getRepository('Test1Bundle:Company')->findAll();
 
         // Prepare paginator:
         /** @var Paginator $paginator */

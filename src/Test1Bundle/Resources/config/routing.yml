@@ -16,3 +16,6 @@ avanzu_admin_profile:
 avanzu_admin_logout:
     path: /logout
 
+test1_comment:
+    resource: "@Test1Bundle/Controller/CommentController.php"
+    type:     annotation
