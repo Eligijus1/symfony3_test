@@ -2,6 +2,9 @@
 
 namespace Test1Bundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Knp\Component\Pager\Pagination\AbstractPagination;
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -21,15 +24,43 @@ class CommentController extends Controller
      *
      * @Route("/", name="comment_index")
      * @Method("GET")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        // Define paging required variables:
+        $pageSize        = 10;
+        $pageNumber      = $request->query->getInt('page', 1);
+        $pageStartRecord = ($pageNumber * $pageSize) - $pageSize + 1;
+        $pageEndRecord   = ($pageNumber * $pageSize);
+
+        // Get entity manager:
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $comments = $em->getRepository('Test1Bundle:Comment')->findAll();
+        // Prepare query:
+        $qb = $em->createQueryBuilder();
+        $qb->select("entity");
+        $qb->from("\\Test1Bundle\\Entity\\Comment", "entity");
+        $query = $em->createQuery($qb->getQuery()->getDQL());
 
-        return $this->render('comment/index.html.twig', array(
-            'comments' => $comments,
+        // Prepare paginator:
+        /** @var Paginator $paginator */
+        $paginator = $this->get('knp_paginator');
+        /** @var AbstractPagination $pagination */
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $pageSize/*limit per page*/
+        );
+
+        return $this->render('Test1Bundle:comment:index.html.twig', array(
+            'comments' => $pagination,
+            'pageSize'        => $pageSize,
+            'pageNumber'      => $pageNumber,
+            'pageStartRecord' => $pageStartRecord,
+            'pageEndRecord'   => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
         ));
     }
 
@@ -53,7 +84,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
         }
 
-        return $this->render('comment/new.html.twig', array(
+        return $this->render('Test1Bundle:comment:new.html.twig', array(
             'comment' => $comment,
             'form' => $form->createView(),
         ));
@@ -69,7 +100,7 @@ class CommentController extends Controller
     {
         $deleteForm = $this->createDeleteForm($comment);
 
-        return $this->render('comment/show.html.twig', array(
+        return $this->render('Test1Bundle:comment:show.html.twig', array(
             'comment' => $comment,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -95,7 +126,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
         }
 
-        return $this->render('comment/edit.html.twig', array(
+        return $this->render('Test1Bundle:comment:edit.html.twig', array(
             'comment' => $comment,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

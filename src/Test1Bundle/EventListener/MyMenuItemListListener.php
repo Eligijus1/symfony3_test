@@ -21,6 +21,11 @@ class MyMenuItemListListener
     }
 
     /**
+     * Menu menu definition method.
+     *
+     * NOTE 1: icons you can find by address:
+     *         https://almsaeedstudio.com/themes/AdminLTE/pages/UI/icons.html
+     *
      * @param Request $request
      * @return mixed
      */
@@ -28,7 +33,8 @@ class MyMenuItemListListener
     {
         // Build your menu here by constructing a MenuItemModel array:
         $menuItems = array(
-            $blog = new MenuItemModel('CompaniesId', 'Companies list', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
+            new MenuItemModel('CompaniesId', 'Companies', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
+            new MenuItemModel('CommentId', 'Comments', 'comment_index', array(/* options */), 'iconclasses fa fa-comments-o'),
             $systemAdministration = new MenuItemModel('SystemAdministrationId', 'System administration', '', array(/* options */), 'iconclasses fa fa-gear'),
         );
 
