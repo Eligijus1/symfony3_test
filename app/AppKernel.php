@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new JMose\CommandSchedulerBundle\JMoseCommandSchedulerBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            //new FOS\UserBundle\FOSUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
