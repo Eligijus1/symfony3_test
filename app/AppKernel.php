@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMose\CommandSchedulerBundle\JMoseCommandSchedulerBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

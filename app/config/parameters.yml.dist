@@ -17,6 +17,12 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # php-amqplib/rabbitmq-bundle (Formerly oldsound/rabbitmq-bundle) configuration:
+    rabbit_host:     'localhost'
+    rabbit_port:     5672
+    rabbit_user:     'guest'
+    rabbit_password: 'guest'
 jmose_command_scheduler:
     log_path: var/logs/
 knp_paginator:

@@ -75,3 +75,35 @@ fos_user:
     user_class: Test1Bundle\Entity\User
     group:
         group_class: Test1Bundle\Entity\Group
+
+# php-amqplib/rabbitmq-bundle (Formerly oldsound/rabbitmq-bundle) configuration:
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     "%rabbit_host%"
+            port:     "%rabbit_port%"
+            user:     "%rabbit_user%"
+            password: "%rabbit_password%"
+            vhost:    '/'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+
+            # requires php-amqplib v2.4.1+ and PHP5.4+
+            keepalive: false
+
+            # requires php-amqplib v2.4.1+
+            heartbeat: 0
+
+            #requires php_sockets.dll
+            use_socket: true # default false
+    producers:
+        api_call:
+            connection:       default
+            exchange_options: {name: 'api_call', type: direct}
+            queue_options:
+                name: 'statuses/update'
+                routing_keys:
+                    - 'statuses/update'
+
+
