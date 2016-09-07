@@ -101,9 +101,6 @@ old_sound_rabbit_mq:
         api_call:
             connection:       default
             exchange_options: {name: 'api_call', type: direct}
-            queue_options:
-                name: 'statuses/update'
-                routing_keys:
-                    - 'statuses/update'
+
 
 

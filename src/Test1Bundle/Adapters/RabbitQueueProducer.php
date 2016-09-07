@@ -23,6 +23,7 @@ class RabbitQueueProducer
 
     public function publish($message)
     {
-        $this->producer->publish(serialize($message));
+        //$this->producer->publish(serialize($message));
+        $this->producer->publish(serialize($message), 'statuses/update');
     }
 }

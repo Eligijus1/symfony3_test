@@ -58,10 +58,10 @@ class RabbitProducerTest1Controller extends Controller
             $msg = new \stdClass();
 
             $msg->handle = '@nealio82';
-            $msg->endpoint = '/statuses/update';
+            $msg->endpoint = 'statuses/update';
             $msg->text = 'Tweet ' . $i;
 
-            //$this->get("")
+            $this->get("rabbit_api_call_queue")->publish(json_encode($msg));
         }
 
         // return $this->redirectToRoute('rabbit_producer_test_1_index');

@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    rabbit_api_call_queue:
+        class: Test1Bundle\Adapters\RabbitQueueProducer
+        arguments: ["@old_sound_rabbit_mq.api_call_producer"]
