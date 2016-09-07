@@ -101,6 +101,12 @@ old_sound_rabbit_mq:
         api_call:
             connection:       default
             exchange_options: {name: 'api_call', type: direct}
+            queue_options:
+                name: 'symfony3_test_1'
+                routing_keys:
+                    - 'symfony3_test_1_key_1'
+
+
 
 
 
