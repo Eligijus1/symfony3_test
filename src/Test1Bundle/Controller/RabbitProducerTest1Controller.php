@@ -47,4 +47,24 @@ class RabbitProducerTest1Controller extends Controller
     {
         return $this->render('Test1Bundle:rabbit_producer_test_1:index.html.twig');
     }
+
+    /**
+     * @Route("/produce", name="rabbit_producer_test_1_produce")
+     */
+    public function produceAction()
+    {
+        for ($i = 0; $i < 20; $i++)
+        {
+            $msg = new \stdClass();
+
+            $msg->handle = '@nealio82';
+            $msg->endpoint = '/statuses/update';
+            $msg->text = 'Tweet ' . $i;
+
+            //$this->get("")
+        }
+
+        // return $this->redirectToRoute('rabbit_producer_test_1_index');
+        return $this->render('Test1Bundle:rabbit_producer_test_1:produce.html.twig');
+    }
 }
