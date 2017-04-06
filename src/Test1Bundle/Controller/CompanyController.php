@@ -5,23 +5,19 @@ namespace Test1Bundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Test1Bundle\Entity\Company;
-use Test1Bundle\Form\CompanyType;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\Query\QueryExpressionVisitor;
+use Test1Bundle\Entity\Manager\CompanyManager;
 
 /**
  * Company controller.
  *
  * @Route("/company")
  */
-class CompanyController extends Controller
+class CompanyController extends BaseController
 {
     /**
      * Lists all Company entities.
@@ -61,7 +57,7 @@ class CompanyController extends Controller
         );
 
         // Return prepared list:
-        return $this->render('Test1Bundle:company:index.html.twig', array(
+        return $this->render('Test1Bundle:Company:index.html.twig', array(
             'companies'       => $pagination,
             'pageSize'        => $pageSize,
             'pageNumber'      => $pageNumber,
@@ -93,7 +89,7 @@ class CompanyController extends Controller
             return $this->redirectToRoute('company_show', array('id' => $company->getId()));
         }
 
-        return $this->render('Test1Bundle:company:new.html.twig', array(
+        return $this->render('Test1Bundle:Company:new.html.twig', array(
             'company' => $company,
             'form'    => $form->createView(),
         ));
@@ -104,12 +100,15 @@ class CompanyController extends Controller
      *
      * @Route("/{id}", name="company_show")
      * @Method("GET")
+     * @param Company $company
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Company $company)
     {
         $deleteForm = $this->createDeleteForm($company);
 
-        return $this->render('Test1Bundle:company:show.html.twig', array(
+        return $this->render('Test1Bundle:Company:show.html.twig', array(
             'company'     => $company,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -120,6 +119,10 @@ class CompanyController extends Controller
      *
      * @Route("/{id}/edit", name="company_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Company $company
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Company $company)
     {
@@ -135,7 +138,7 @@ class CompanyController extends Controller
             return $this->redirectToRoute('company_edit', array('id' => $company->getId()));
         }
 
-        return $this->render('Test1Bundle:company:edit.html.twig', array(
+        return $this->render('Test1Bundle:Company:edit.html.twig', array(
             'company'     => $company,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -143,23 +146,30 @@ class CompanyController extends Controller
     }
 
     /**
-     * Deletes a Company entity.
+     * @param int $id
      *
      * @Route("/{id}", name="company_delete")
-     * @Method("DELETE")
+     *
+     * @return JsonResponse
      */
-    public function deleteAction(Request $request, Company $company)
+    public function deleteAction(int $id)
     {
-        $form = $this->createDeleteForm($company);
-        $form->handleRequest($request);
+        $translator = $this->get('translator');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($company);
-            $em->flush();
+        try {
+            /** @var CompanyManager $companyManager */
+            $companyManager = $this->get('manager.company');
+            $companyManager->deleteById($id);
+        } catch (\Throwable $e) {
+            return $this->createErrorResponse($translator->trans('price_rule_names.actions.delete.error'));
         }
 
-        return $this->redirectToRoute('company_index');
+        $this->addFlash(
+            'success',
+            $translator->trans('price_rule_names.actions.delete.success', ['name_id' => $id])
+        );
+
+        return $this->createSuccessResponse($this->generateUrl('company_index'));
     }
 
     /**

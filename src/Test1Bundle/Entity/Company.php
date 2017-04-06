@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Company
  *
  * @ORM\Table(name="company")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Test1Bundle\Entity\Repository\CompanyRepository")
  */
 class Company
 {

@@ -1,0 +1,17 @@
+<div class="modal fade" id="{{ modal.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ modal.id }}-header" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="{{ modal.id }}-header">{{ modal.header }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ modal.body|default|raw }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'forms.cancel'|trans }}</button>
+                <button type="button" class="btn btn-{{ modal.class }} btn-ok">{{ modal.button|default("actions.confirm")|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

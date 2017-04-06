@@ -16,3 +16,18 @@ services:
         class: %my_admin_bundle.menu_listener.class%
         tags:
             - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
+
+    # BEGIN managers
+    manager.company:
+        class: Test1Bundle\Entity\Manager\CompanyManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@repository.company"
+    # END managers
+
+    # BEGIN Repository
+    repository.company:
+        class: Test1Bundle\Entity\Repository\CompanyRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [Test1Bundle\Entity\Company]
+    # END Repository

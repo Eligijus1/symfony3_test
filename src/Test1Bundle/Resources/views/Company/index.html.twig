@@ -47,8 +47,16 @@
                             <a class="btn btn-info btn-sm"
                                href="{{ path('company_edit', { 'id': company.id }) }}"><i
                                         class="fa fa-edit"></i> Edit</a>
+
                             <a class="btn btn-danger btn-sm"
                                href="#"><i class="fa fa-remove"></i> Delete</a>
+
+                            <a class="btn btn-danger btn-xs" href="#" data-toggle="modal"
+                               data-ref="{{ path('company_delete', {'id': company.id}) }}"
+                               data-record-title="{{ company.name }}"
+                               data-target="#confirm-delete"
+                               data-message="{{ 'price_rule_names.actions.delete.warning'|trans|escape }}">
+                                <i class="fa fa-remove"></i> {{ 'actions.remove'|trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -77,4 +85,6 @@
             </div>
         </div>
     </div>
+
+    {% include 'Test1Bundle:Modal:delete_modal.html.twig' %}
 {% endblock %}
