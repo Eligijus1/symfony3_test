@@ -68,13 +68,16 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-# Define FOSUserBundle configutation:
+# Define FOSUserBundle configuration:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Test1Bundle\Entity\User
     group:
         group_class: Test1Bundle\Entity\Group
+    from_email:
+        address: "noreply@symfony3_test.com"
+        sender_name: "No Reply"
 
 # php-amqplib/rabbitmq-bundle (Formerly oldsound/rabbitmq-bundle) configuration:
 old_sound_rabbit_mq:
