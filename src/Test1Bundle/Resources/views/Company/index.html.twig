@@ -1,4 +1,8 @@
-{% extends 'Test1Bundle::base-layout.html.twig' %}
+{% extends 'Test1Bundle::base.html.twig' %}
+
+{% block title %} Test system {% endblock %}
+
+{% block page_subtitle %} {% endblock %}
 
 {% block page_title %} Companies {% endblock %}
 
@@ -41,15 +45,12 @@
                         <td>{{ company.modifyBy }}</td>
                         <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>
-                            <a class="btn btn-success btn-sm"
+                            <a class="btn btn-success btn-xs"
                                href="{{ path('company_show', { 'id': company.id }) }}"><i class="fa fa-eye"></i>
                                 View</a>
-                            <a class="btn btn-info btn-sm"
+                            <a class="btn btn-info btn-xs"
                                href="{{ path('company_edit', { 'id': company.id }) }}"><i
                                         class="fa fa-edit"></i> Edit</a>
-
-                            <a class="btn btn-danger btn-sm"
-                               href="#"><i class="fa fa-remove"></i> Delete</a>
 
                             <a class="btn btn-danger btn-xs" href="#" data-toggle="modal"
                                data-ref="{{ path('company_delete', {'id': company.id}) }}"

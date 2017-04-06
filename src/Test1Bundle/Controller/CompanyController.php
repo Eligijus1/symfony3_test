@@ -26,15 +26,16 @@ class CompanyController extends BaseController
      * @Method("GET")
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
         // Define paging required variables:
-        $pageSize        = 10;
-        $pageNumber      = $request->query->getInt('page', 1);
+        $pageSize = 10;
+        $pageNumber = $request->query->getInt('page', 1);
         $pageStartRecord = ($pageNumber * $pageSize) - $pageSize + 1;
-        $pageEndRecord   = ($pageNumber * $pageSize);
+        $pageEndRecord = ($pageNumber * $pageSize);
 
         // Get entity manager:
         /** @var EntityManager $em */
@@ -58,11 +59,11 @@ class CompanyController extends BaseController
 
         // Return prepared list:
         return $this->render('Test1Bundle:Company:index.html.twig', array(
-            'companies'       => $pagination,
-            'pageSize'        => $pageSize,
-            'pageNumber'      => $pageNumber,
+            'companies' => $pagination,
+            'pageSize' => $pageSize,
+            'pageNumber' => $pageNumber,
             'pageStartRecord' => $pageStartRecord,
-            'pageEndRecord'   => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
+            'pageEndRecord' => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
         ));
     }
 
@@ -78,7 +79,7 @@ class CompanyController extends BaseController
     public function newAction(Request $request)
     {
         $company = new Company();
-        $form    = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $form = $this->createForm('Test1Bundle\Form\CompanyType', $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,7 +92,7 @@ class CompanyController extends BaseController
 
         return $this->render('Test1Bundle:Company:new.html.twig', array(
             'company' => $company,
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -109,7 +110,7 @@ class CompanyController extends BaseController
         $deleteForm = $this->createDeleteForm($company);
 
         return $this->render('Test1Bundle:Company:show.html.twig', array(
-            'company'     => $company,
+            'company' => $company,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -127,7 +128,7 @@ class CompanyController extends BaseController
     public function editAction(Request $request, Company $company)
     {
         $deleteForm = $this->createDeleteForm($company);
-        $editForm   = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $editForm = $this->createForm('Test1Bundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -139,8 +140,8 @@ class CompanyController extends BaseController
         }
 
         return $this->render('Test1Bundle:Company:edit.html.twig', array(
-            'company'     => $company,
-            'edit_form'   => $editForm->createView(),
+            'company' => $company,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -152,7 +153,7 @@ class CompanyController extends BaseController
      *
      * @return JsonResponse
      */
-    public function deleteAction(int $id)
+    public function deleteAction(int $id) : JsonResponse
     {
         $translator = $this->get('translator');
 

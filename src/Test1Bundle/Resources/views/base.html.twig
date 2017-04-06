@@ -1,0 +1,12 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@Test1Bundle/Resources/public/js/common.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {#<script src="{{ asset('assets/vendor/select2/dist/js/select2.full.min.js') }}"></script>}
+    {#<script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>#}
+{% endblock %}

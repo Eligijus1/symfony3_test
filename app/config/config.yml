@@ -116,6 +116,9 @@ old_sound_rabbit_mq:
             queue_options: {name: 'symfony3_test_1'}
             callback: rabbit_make_api_call
 
-
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles: [ 'Test1Bundle' ]
 
 
