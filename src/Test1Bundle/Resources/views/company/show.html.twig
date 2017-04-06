@@ -1,52 +1,63 @@
-{% extends 'base.html.twig' %}
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
 
-{% block body %}
-    <h1>Company</h1>
+{% block title %}Company preview{% endblock %}
 
-    <table>
-        <tbody>
+{% block page_title %}Company preview{% endblock %}
+
+{% block page_subtitle %} {% endblock %}
+
+{% block page_content %}
+    <div class="box">
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Company preview</h3>
+        <div class="pull-right box-tools">
+            <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i> List</a>
+            <a class="btn btn-info btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}"><i class="fa fa-edit"></i> Edit</a>
+            <a class="btn btn-danger btn-sm"
+               href="#"><i class="fa fa-remove"></i> Delete</a>
+        </div>
+    </div>
+
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table width="100%">
             <tr>
-                <th>Name</th>
+                <td width="10%" align="right"><b>Id:</b></td>
+                <td>&nbsp;</td>
+                <td width="90%">{{ company.id }}</td>
+            </tr>
+            <tr>
+                <td align="right"><b>Name:</b></td>
+                <td>&nbsp;</td>
                 <td>{{ company.name }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <td align="right"><b>Description:</b></td>
+                <td>&nbsp;</td>
                 <td>{{ company.description }}</td>
             </tr>
             <tr>
-                <th>Createby</th>
+                <td align="right"><b>Create by:</b></td>
+                <td>&nbsp;</td>
                 <td>{{ company.createBy }}</td>
             </tr>
             <tr>
-                <th>Createdate</th>
+                <td align="right"><b>Create date:</b></td>
+                <td>&nbsp;</td>
                 <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Modifyby</th>
+                <td align="right"><b>Modify by:</b></td>
+                <td>&nbsp;</td>
                 <td>{{ company.modifyBy }}</td>
             </tr>
             <tr>
-                <th>Modifydate</th>
+                <td align="right"><b>Modify date:</b></td>
+                <td>&nbsp;</td>
                 <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ company.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('company_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('company_edit', { 'id': company.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </table>
+    </div>
+    <!-- /.box-body -->
 {% endblock %}

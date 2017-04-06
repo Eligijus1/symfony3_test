@@ -8,49 +8,55 @@
         <div class="col-xs-12">
             <div class="box">
 
-                <div class="box-header">
-                    <h3 class="box-title">Hover Data Table</h3>
+                <div class="box-header with-border">
+                    <h3 class="box-title">Companies list</h3>
+                    <div class="pull-right box-tools">
+                        <a class="btn btn-info btn-sm" href="{{ path('company_new') }}"><i class="fa fa-plus"></i>
+                            New</a>
+                    </div>
                 </div>
 
-                <table class="table table-bordered table-striped table-hover" id="companiesDataTable">
-                    <thead>
-                    <tr>
-                        {# sorting of properties based on query components #}
-                        <th class="sorting">{{ knp_pagination_sortable(companies, 'Name', 'entity.name') }}</th>
-                        <th>Description</th>
-                        <th>Createby</th>
-                        <th>Createdate</th>
-                        <th>Modifyby</th>
-                        <th>Modifydate</th>
-                        <th>{{ knp_pagination_sortable(companies, 'Id', 'entity.id') }}</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for company in companies %}
+                <div class="box-body">
+                    <table class="table table-bordered table-striped table-hover" id="companiesDataTable">
+                        <thead>
                         <tr>
-                            <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.name }}</a></td>
-                            <td>{{ company.description }}</td>
-                            <td>{{ company.createBy }}</td>
-                            <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{{ company.modifyBy }}</td>
-                            <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{{ company.id }}</td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('company_show', { 'id': company.id }) }}">show</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('company_edit', { 'id': company.id }) }}">edit</a>
-                                    </li>
-                                </ul>
-                            </td>
+                            {# sorting of properties based on query components #}
+                            <th>{{ knp_pagination_sortable(companies, 'Id', 'entity.id') }}</th>
+                            <th class="sorting">{{ knp_pagination_sortable(companies, 'Name', 'entity.name') }}</th>
+                            <th>Description</th>
+                            <th>Createby</th>
+                            <th>Createdate</th>
+                            <th>Modifyby</th>
+                            <th>Modifydate</th>
+                            <th>Actions</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                        {% for company in companies %}
+                            <tr>
+                                <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
+                                <td>{{ company.name }}</td>
+                                <td>{{ company.description }}</td>
+                                <td>{{ company.createBy }}</td>
+                                <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>{{ company.modifyBy }}</td>
+                                <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                <td>
+                                    <a class="btn btn-success btn-sm"
+                                       href="{{ path('company_show', { 'id': company.id }) }}"><i class="fa fa-eye"></i>
+                                        View</a>
+                                    <a class="btn btn-info btn-sm"
+                                       href="{{ path('company_edit', { 'id': company.id }) }}"><i
+                                                class="fa fa-edit"></i> Edit</a>
+                                    <a class="btn btn-danger btn-sm"
+                                       href="#"><i class="fa fa-remove"></i> Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+            <div class="box-footer clearfix">
                 {# display navigation #}
                 <div class="row">
                     <div class="col-lg-12">
@@ -70,17 +76,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <!-- /.box-body -->
+            </div>
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
     </div>
     <!-- /.row -->
-
-    <ul>
-        <li>
-            <a href="{{ path('company_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}
