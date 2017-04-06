@@ -1,0 +1,51 @@
+Remove: Remove
+actions:
+    approve: Approve
+    add: Add
+    edit: Edit
+    remove: Remove
+    confirm: Confirm
+    cancel: Cancel
+    mark_as_sent: Mark as Sent
+    search: Search
+    view: View
+    reset: Reset
+    back: Back
+    save: Save
+    new: New
+    actions: Actions
+    yes: Yes
+    no: No
+    calculate: Calculate
+    alert: Alert!
+    release_parked: Release
+    reroute: Reroute
+    manual_override: Manual Override
+    next: Next
+    previous: Previous
+    download: Download
+    pricing: Pricing
+    move_down: Move Down
+    move_up: Move Up
+company:
+    list: List of companies
+    id: ID
+    name: Name
+    description: Description
+    actions:
+        actions: Actions
+        new:
+            label: Add new company
+            success: "Successfully added company with id #id"
+        view:
+            label: "View company #id"
+            form_label: "Company #id"
+        save:
+            label: Save
+        edit:
+            label: "Edit company #id"
+            success: "Successfully updated company with id #id"
+        delete:
+            success: "Company with id #id was successfully deleted"
+            warning: "<p>You are about to delete company #<b><i class=\"title\"></i></b>, this procedure is irreversible.</p><p>Do you want to proceed?</p>"
+            error: "Could not delete company, try again later"
