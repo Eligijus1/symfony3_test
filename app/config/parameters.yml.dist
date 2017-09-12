@@ -1,21 +1,20 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
+    # Main DB configuration:
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     symfony
     database_user:     root
-    database_password: ~
+    database_password: root
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
+    # Mail system configuration:
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
 
-    # A secret key that's used to generate certain security-related tokens
+    # A secret key that's used to generate certain security-related tokens:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     # php-amqplib/rabbitmq-bundle (Formerly oldsound/rabbitmq-bundle) configuration:
@@ -23,8 +22,10 @@ parameters:
     rabbit_port:     5672
     rabbit_user:     'guest'
     rabbit_password: 'guest'
+
 jmose_command_scheduler:
     log_path: var/logs/
+
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
