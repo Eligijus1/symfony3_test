@@ -103,6 +103,7 @@ class User extends BaseUser
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+        $this->enabled = true;
     }
     /**
      * @return mixed
