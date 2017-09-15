@@ -105,6 +105,15 @@ class User extends BaseUser
         $this->isActive = $isActive;
         $this->enabled = true;
     }
+
+    /**
+     * @return bool
+     */
+    public function getEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
     /**
      * @return mixed
      */

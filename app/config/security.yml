@@ -5,7 +5,12 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_CAN_MANAGE_USERS: [ ROLE_CAN_VIEW_USER ]
+        ROLE_CAN_MANAGE_SUPPLIERS: [ ROLE_CAN_VIEW_SUPPLIERS ]
+        ROLE_ADMIN:
+            - ROLE_USER
+            - ROLE_CAN_MANAGE_USERS
+            - ROLE_CAN_MANAGE_SUPPLIERS
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -28,6 +33,7 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_ADMIN }
 
     # Configuring ACL system:

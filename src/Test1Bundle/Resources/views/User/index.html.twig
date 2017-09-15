@@ -20,7 +20,7 @@
                 <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if user.getEnabled %}Yes{% else %}No{% endif %}</td>
                 <td>
                     <ul>
                         <li>

@@ -36,13 +36,13 @@ class MyMenuItemListListener
             new MenuItemModel('CompaniesId', 'Companies', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
             new MenuItemModel('CommentId', 'Comments', 'comment_index', array(/* options */), 'iconclasses fa fa-comments-o'),
             new MenuItemModel('RabbitProducerTest1Id', 'Rabbit Producer Test 1', 'rabbit_producer_test_1_index', array(/* options */), 'iconclasses fa fa-send-o'),
-            $systemAdministration = new MenuItemModel('SystemAdministrationId', 'System administration', '', array(/* options */), 'iconclasses fa fa-gear'),
+            $systemAdministration = new MenuItemModel('SystemAdministrationId', 'Administration', '', array(/* options */), 'iconclasses fa fa-gear'),
         );
 
         // Add some children to "System administration":
         $systemAdministration->addChild(new MenuItemModel(
             'UsersId'
-            , 'Users list'
+            , 'Users'
             , 'user_index'
             , array(/* options */)
             , 'iconclasses fa fa-users'));
