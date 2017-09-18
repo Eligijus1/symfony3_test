@@ -27,6 +27,10 @@ parameters:
     facebook_app_id: ???
     facebook_app_secret: ???
 
+    # Google+ login information:
+    google_app_id: ???
+    google_app_secret: ???
+
 jmose_command_scheduler:
     log_path: var/logs/
 

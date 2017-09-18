@@ -31,7 +31,7 @@ security:
             oauth:
                 resource_owners:
                     facebook:           "/login/check-facebook"
-                    #google:             "/login/check-google"
+                    google:             "/login/check-google"
                 login_path:        /login
                 failure_path:      /login
 
@@ -47,7 +47,6 @@ security:
             security: false
 
             remember_me:
-                #key: "%secret%"
                 secret: "%secret%"
                 lifetime: 31536000 # 365 days in seconds
                 path: /
