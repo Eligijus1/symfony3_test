@@ -1,5 +1,3 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
 parameters:
     my_user_provider.class: AppBundle\Security\Core\User\FOSUBUserProvider
 
@@ -7,8 +5,12 @@ services:
     rabbit_api_call_queue:
         class: Test1Bundle\Adapters\RabbitQueueProducer
         arguments: ["@old_sound_rabbit_mq.api_call_producer"]
+
     rabbit_make_api_call:
         class: Test1Bundle\Adapters\RabbitQueueConsumer
+
     my_user_provider:
         class: "%my_user_provider.class%"
-        #arguments: [@fos_user.user_manager, {facebook: facebook_id}]
+        arguments:
+            - '@fos_user.user_manager'
+            - {facebook: facebook_id}

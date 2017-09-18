@@ -45,10 +45,12 @@ class FOSUBUserProvider extends BaseClass
             $setter = 'set' . ucfirst($service);
             $setter_id = $setter . 'Id';
             $setter_token = $setter . 'AccessToken';
-            // create new user here
+
+            // Create new user here:
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
+
             //I have set all requested data with the user's username
             //modify here with relevant data
             $user->setUsername($username);
