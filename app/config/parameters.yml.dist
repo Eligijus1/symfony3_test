@@ -23,6 +23,10 @@ parameters:
     rabbit_user:     'guest'
     rabbit_password: 'guest'
 
+    # Facebook login information:
+    facebook_app_id: ???
+    facebook_app_secret: ???
+
 jmose_command_scheduler:
     log_path: var/logs/
 
