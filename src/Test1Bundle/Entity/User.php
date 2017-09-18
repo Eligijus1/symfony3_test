@@ -4,13 +4,13 @@ namespace Test1Bundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use HWI\Bundle\OAuthBundle\Tests\Fixtures\FOSUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends FosUser
+class User extends BaseUser
 {
     /**
      * @ORM\Id
@@ -18,6 +18,18 @@ class User extends FosUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
 
     /**
      * @ORM\ManyToMany(targetEntity="Test1Bundle\Entity\Group")
