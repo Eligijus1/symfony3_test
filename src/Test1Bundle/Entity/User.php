@@ -4,12 +4,13 @@ namespace Test1Bundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use HWI\Bundle\OAuthBundle\Tests\Fixtures\FOSUser;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
+class User extends FosUser
 {
     /**
      * @ORM\Id
