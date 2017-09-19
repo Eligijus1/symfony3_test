@@ -5,7 +5,7 @@ parameters:
 
 services:
     my_admin_bundle.show_user_listener:
-        class: %my_admin_bundle.show_user_listener.class%
+        class: "%my_admin_bundle.show_user_listener.class%"
         arguments:
             - "@security.token_storage"
         tags:
@@ -13,7 +13,9 @@ services:
             - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
 
     my_admin_bundle.menu_listener:
-        class: %my_admin_bundle.menu_listener.class%
+        class: "%my_admin_bundle.menu_listener.class%"
+        arguments:
+            - "@security.authorization_checker"
         tags:
             - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
 

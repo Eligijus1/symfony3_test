@@ -31,6 +31,8 @@ class CompanyController extends BaseController
      */
     public function indexAction(Request $request)
     {
+        //$this->denyAccessUnlessGranted('ROLE_CAN_VIEW_OVERRIDE_RULES');
+
         // Define paging required variables:
         $pageSize = 10;
         $pageNumber = $request->query->getInt('page', 1);
@@ -78,6 +80,8 @@ class CompanyController extends BaseController
      */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
+
         $company = new Company();
         $form = $this->createForm('Test1Bundle\Form\CompanyType', $company);
         $form->handleRequest($request);

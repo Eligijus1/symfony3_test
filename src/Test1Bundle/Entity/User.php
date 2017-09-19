@@ -4,7 +4,6 @@ namespace Test1Bundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -40,6 +39,9 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -56,17 +58,43 @@ class User extends BaseUser
         // see section on salt below
         return null;
     }
+
     public function getPassword()
     {
         return $this->password;
     }
+
+    /**
+     * Return supported by user roles.
+     *
+     * @return array
+     */
     public function getRoles()
     {
-        return array('ROLE_USER', 'ROLE_ADMIN');
+        $roles = $this->roles;
+
+        // Guarantee that every user has ROLE_USER:
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
+
+    /**
+     * @param array $roles
+     *
+     * @return $this
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function eraseCredentials()
     {
     }
+
     /** @see \Serializable::serialize() */
     public function serialize()
     {
@@ -78,6 +106,7 @@ class User extends BaseUser
             // $this->salt,
         ));
     }
+
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
@@ -96,6 +125,7 @@ class User extends BaseUser
     {
         $this->username = $username;
     }
+
     /**
      * @param string $password
      */
@@ -103,6 +133,7 @@ class User extends BaseUser
     {
         $this->password = $password;
     }
+
     /**
      * @param string $email
      */

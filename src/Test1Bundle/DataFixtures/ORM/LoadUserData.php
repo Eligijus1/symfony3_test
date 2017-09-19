@@ -38,6 +38,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $encoder = $this->container->get('security.password_encoder');
         $encoded = $encoder->encodePassword($userAdmin, 'admin');
         $userAdmin->setPassword($encoded);
+        $userAdmin->setRoles(['ROLE_ADMIN']);
 
         // Save to DB:
         $manager->persist($userAdmin);

@@ -1,12 +1,29 @@
 <?php
+
 namespace Test1Bundle\EventListener;
 
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Test1Bundle\Model\MenuItemModel;
 use Avanzu\AdminThemeBundle\Event\SidebarMenuEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 class MyMenuItemListListener
 {
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
+    /**
+     * MyMenuItemListListener constructor.
+     *
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     */
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $this->authorizationChecker = $authorizationChecker;
+    }
+
     /**
      * @param SidebarMenuEvent $event
      */
@@ -27,17 +44,28 @@ class MyMenuItemListListener
      *         https://almsaeedstudio.com/themes/AdminLTE/pages/UI/icons.html
      *
      * @param Request $request
+     *
      * @return mixed
      */
     protected function getMenu(Request $request)
     {
-        // Build your menu here by constructing a MenuItemModel array:
-        $menuItems = array(
-            new MenuItemModel('CompaniesId', 'Companies', 'company_index', array(/* options */), 'iconclasses fa fa-industry'),
-            new MenuItemModel('CommentId', 'Comments', 'comment_index', array(/* options */), 'iconclasses fa fa-comments-o'),
-            new MenuItemModel('RabbitProducerTest1Id', 'Rabbit Producer Test 1', 'rabbit_producer_test_1_index', array(/* options */), 'iconclasses fa fa-send-o'),
-            $systemAdministration = new MenuItemModel('SystemAdministrationId', 'Administration', '', array(/* options */), 'iconclasses fa fa-gear'),
-        );
+        $menuItems = [];
+
+        // Adding companies manager:
+        if ($this->authorizationChecker->isGranted(['ROLE_CAN_VIEW_COMPANIES'])) {
+            $menuItems[] = new MenuItemModel('CompaniesId', 'Companies', 'company_index', [/* options */],
+                'iconclasses fa fa-industry');
+        }
+
+        $menuItems[] = new MenuItemModel('CommentId', 'Comments', 'comment_index', array(/* options */),
+            'iconclasses fa fa-comments-o');
+
+        $menuItems[] = new MenuItemModel('RabbitProducerTest1Id', 'Rabbit Producer Test 1',
+            'rabbit_producer_test_1_index',
+            array(/* options */), 'iconclasses fa fa-send-o');
+
+        $menuItems[] = $systemAdministration = new MenuItemModel('SystemAdministrationId', 'Administration', '',
+            array(/* options */), 'iconclasses fa fa-gear');
 
         // Add some children to "System administration":
         $systemAdministration->addChild(new MenuItemModel(
@@ -58,8 +86,9 @@ class MyMenuItemListListener
     }
 
     /**
-     * @param $route
+     * @param                 $route
      * @param MenuItemModel[] $items
+     *
      * @return mixed
      */
     protected function activateByRoute($route, $items)
