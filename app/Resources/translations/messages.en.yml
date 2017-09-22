@@ -1,4 +1,6 @@
 Remove: Remove
+AvanzuAdminTheme:
+    Profile: Profile
 actions:
     approve: Approve
     add: Add
