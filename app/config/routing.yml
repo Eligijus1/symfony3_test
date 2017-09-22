@@ -79,3 +79,12 @@ facebook_login:
 
 google_login:
     path: /login/check-google
+
+# Dashboard:
+dashboard:
+    path: /dashboard
+    defaults: { _controller: AppBundle:Dashboard:index }
+
+#sale_items_dump_list:
+#    path: /sale-items-dump
+#    defaults: { _controller: controller.sale_items_dump:listAction }

@@ -51,6 +51,17 @@ class MyMenuItemListListener
     {
         $menuItems = [];
 
+        // Adding "Dashboard":
+        if ($this->authorizationChecker->isGranted(['ROLE_USER'])) {
+            $menuItems[] = new MenuItemModel(
+                'DashboardId',
+                'Dashboard',
+                'dashboard',
+                [/* options */],
+                'iconclasses fa fa-dashboard'
+            );
+        }
+
         // Adding companies manager:
         if ($this->authorizationChecker->isGranted(['ROLE_CAN_VIEW_COMPANIES'])) {
             $menuItems[] = new MenuItemModel(

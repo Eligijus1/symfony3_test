@@ -25,12 +25,15 @@ security:
         main:
             pattern: ^/
             form_login:
+                always_use_default_target_path: true # Always Redirect to the default Page
+                default_target_path: dashboard # Changing the default Page
                 provider: fos_userbundle
-                #csrf_provider: form.csrf_provider
                 csrf_token_generator: security.csrf.token_manager
                 login_path: /login
                 check_path: /login_check
             oauth:
+                always_use_default_target_path: true # Always Redirect to the default Page
+                default_target_path: dashboard # Changing the default Page
                 resource_owners:
                     facebook:           "/login/check-facebook"
                     google:             "/login/check-google"
@@ -43,7 +46,6 @@ security:
                     service: my_user_provider
             logout:       true
             anonymous:    true
-
         login:
             pattern:  ^/login$
             security: false
@@ -56,10 +58,9 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/$, roles: ROLE_USER }
-        - { path: ^/, roles: ROLE_ADMIN }
+        #- { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
 
 #    # Configuring ACL system:
 #    acl:
