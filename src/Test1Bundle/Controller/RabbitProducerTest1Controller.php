@@ -53,8 +53,7 @@ class RabbitProducerTest1Controller extends Controller
      */
     public function produceAction()
     {
-        for ($i = 0; $i < 20; $i++)
-        {
+        for ($i = 0; $i < 20; $i++) {
             $msg = new \stdClass();
 
             $msg->handle = 'handle';

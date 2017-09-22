@@ -53,33 +53,54 @@ class MyMenuItemListListener
 
         // Adding companies manager:
         if ($this->authorizationChecker->isGranted(['ROLE_CAN_VIEW_COMPANIES'])) {
-            $menuItems[] = new MenuItemModel('CompaniesId', 'Companies', 'company_index', [/* options */],
-                'iconclasses fa fa-industry');
+            $menuItems[] = new MenuItemModel(
+                'CompaniesId',
+                'Companies',
+                'company_index',
+                [/* options */],
+                'iconclasses fa fa-industry'
+            );
         }
 
-        $menuItems[] = new MenuItemModel('CommentId', 'Comments', 'comment_index', array(/* options */),
-            'iconclasses fa fa-comments-o');
+        $menuItems[] = new MenuItemModel(
+            'CommentId',
+            'Comments',
+            'comment_index',
+            array(/* options */),
+            'iconclasses fa fa-comments-o'
+        );
 
-        $menuItems[] = new MenuItemModel('RabbitProducerTest1Id', 'Rabbit Producer Test 1',
+        $menuItems[] = new MenuItemModel(
+            'RabbitProducerTest1Id',
+            'Rabbit Producer Test 1',
             'rabbit_producer_test_1_index',
-            array(/* options */), 'iconclasses fa fa-send-o');
+            array(/* options */),
+            'iconclasses fa fa-send-o'
+        );
 
-        $menuItems[] = $systemAdministration = new MenuItemModel('SystemAdministrationId', 'Administration', '',
-            array(/* options */), 'iconclasses fa fa-gear');
+        $menuItems[] = $systemAdministration = new MenuItemModel(
+            'SystemAdministrationId',
+            'Administration',
+            '',
+            array(/* options */),
+            'iconclasses fa fa-gear'
+        );
 
         // Add some children to "System administration":
         $systemAdministration->addChild(new MenuItemModel(
-            'UsersId'
-            , 'Users'
-            , 'user_index'
-            , array(/* options */)
-            , 'iconclasses fa fa-users'));
+            'UsersId',
+            'Users',
+            'user_index',
+            array(/* options */),
+            'iconclasses fa fa-users'
+        ));
         $systemAdministration->addChild(new MenuItemModel(
-            'CommandSchedulerId'
-            , 'Command scheduler'
-            , 'jmose_command_scheduler_list'
-            , array(/* options */)
-            , 'iconclasses fa fa-clock-o'));
+            'CommandSchedulerId',
+            'Command scheduler',
+            'jmose_command_scheduler_list',
+            array(/* options */),
+            'iconclasses fa fa-clock-o'
+        ));
 
         // Return prepared menu:
         return $this->activateByRoute($request->get('_route'), $menuItems);

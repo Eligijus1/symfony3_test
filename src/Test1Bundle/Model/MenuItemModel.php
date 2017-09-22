@@ -291,7 +291,7 @@ class MenuItemModel implements MenuItemInterface
     public function removeChild(MenuItemInterface $child)
     {
         if (false !== ($key = array_search($child, $this->children))) {
-            unset ($this->children[$key]);
+            unset($this->children[$key]);
         }
 
         return $this;
@@ -339,4 +339,3 @@ class MenuItemModel implements MenuItemInterface
         return $this->isActive;
     }
 }
-

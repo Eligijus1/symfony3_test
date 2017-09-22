@@ -5,7 +5,6 @@ use Avanzu\AdminThemeBundle\Event\ShowUserEvent;
 use Test1Bundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-
 class MyShowUserListener
 {
     /**
@@ -24,11 +23,11 @@ class MyShowUserListener
     /**
      * @param ShowUserEvent $event
      */
-    public function onShowUser(ShowUserEvent $event) {
+    public function onShowUser(ShowUserEvent $event)
+    {
 
         $user = $this->getUser();
         $event->setUser($user);
-
     }
 
     /**
@@ -36,7 +35,8 @@ class MyShowUserListener
      *
      * @return User
      */
-    protected function getUser() {
+    protected function getUser()
+    {
         return $this->tokenStorage->getToken()->getUser();
     }
 }
