@@ -23,6 +23,11 @@ test1_user:
     resource: "@Test1Bundle/Controller/UserController.php"
     type:     annotation
 
+# AppBundle routing configuration:
+app_bundle_routing:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
 test1:
     resource: "@Test1Bundle/Resources/config/routing.yml"
     prefix:   /

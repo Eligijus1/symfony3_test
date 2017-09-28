@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\Controller;
+namespace AppBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;

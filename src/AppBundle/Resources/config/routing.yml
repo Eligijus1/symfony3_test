@@ -1,0 +1,5 @@
+# Comments routing:
+comments:
+    resource: "@AppBundle/Controller/CommentController.php"
+    type:     annotation
+
