@@ -1,8 +1,8 @@
 services:
     rabbit_api_call_queue:
-        class: Test1Bundle\Adapters\RabbitQueueProducer
+        class: AppBundle\Adapters\RabbitQueueProducer
         arguments: ["@old_sound_rabbit_mq.api_call_producer"]
 
     rabbit_make_api_call:
-        class: Test1Bundle\Adapters\RabbitQueueConsumer
+        class: AppBundle\Adapters\RabbitQueueConsumer
 

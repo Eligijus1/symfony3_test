@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\Adapters;
+namespace AppBundle\Adapters;
 
 use OldSound\RabbitMqBundle\RabbitMq\Producer;
 
