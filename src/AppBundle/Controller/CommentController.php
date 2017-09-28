@@ -5,24 +5,22 @@ namespace AppBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Test1Bundle\Entity\Comment;
-use Test1Bundle\Form\CommentType;
 
 /**
  * Comment controller.
  *
  * @Route("/comment")
  */
-class CommentController extends Controller
+class CommentController extends BaseController
 {
     /**
      * Lists all Comment entities.
@@ -86,20 +84,20 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            // Creating the ACL:
-            /** @var MutableAclProvider $aclProvider */
-            $aclProvider    = $this->get('security.acl.provider');
-            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
-            $acl            = $aclProvider->createAcl($objectIdentity);
-
-            // Retrieving the security identity of the currently logged-in user
-            $tokenStorage     = $this->get('security.token_storage');
-            $user             = $tokenStorage->getToken()->getUser();
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
-
-            // Grant owner access
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-            $aclProvider->updateAcl($acl);
+//            // Creating the ACL:
+//            /** @var MutableAclProvider $aclProvider */
+//            $aclProvider    = $this->get('security.acl.provider');
+//            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+//            $acl            = $aclProvider->createAcl($objectIdentity);
+//
+//            // Retrieving the security identity of the currently logged-in user
+//            $tokenStorage     = $this->get('security.token_storage');
+//            $user             = $tokenStorage->getToken()->getUser();
+//            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+//
+//            // Grant owner access
+//            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+//            $aclProvider->updateAcl($acl);
 
             // Show view form:
             return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
