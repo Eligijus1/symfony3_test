@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\EventListener;
+namespace AppBundle\EventListener;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Test1Bundle\Model\MenuItemModel;

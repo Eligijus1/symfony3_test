@@ -1,5 +1,5 @@
 <?php
-namespace Test1Bundle\EventListener;
+namespace AppBundle\EventListener;
 
 use Avanzu\AdminThemeBundle\Event\ShowUserEvent;
 use Test1Bundle\Entity\User;
