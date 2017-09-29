@@ -16,7 +16,3 @@ avanzu_admin_profile:
 avanzu_admin_logout:
     path: /logout
 
-# Rabbit routings:
-rabbit_producer_test_1:
-    resource: "@Test1Bundle/Controller/RabbitProducerTest1Controller.php"
-    type:     annotation

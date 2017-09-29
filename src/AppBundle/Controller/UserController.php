@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -141,6 +141,6 @@ class UserController extends Controller
             ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }

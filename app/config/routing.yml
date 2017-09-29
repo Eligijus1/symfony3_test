@@ -11,18 +11,6 @@ hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix:   /login
 
-#facebook_login:
-#    path: /login/check-facebook
-
-# Custom project routes:
-test1_company:
-    resource: "@Test1Bundle/Controller/CompanyController.php"
-    type:     annotation
-
-test1_user:
-    resource: "@Test1Bundle/Controller/UserController.php"
-    type:     annotation
-
 # AppBundle routing configuration:
 app_bundle_routing:
     resource: "@AppBundle/Resources/config/routing.yml"

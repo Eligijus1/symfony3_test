@@ -1,8 +1,7 @@
 <?php
 
-namespace Test1Bundle\Controller;
+namespace AppBundle\Controller;
 
-use AppBundle\Controller\BaseController;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
