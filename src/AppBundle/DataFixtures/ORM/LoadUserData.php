@@ -6,7 +6,7 @@
  * Time: 12:14
  */
 
-namespace Test1Bundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
