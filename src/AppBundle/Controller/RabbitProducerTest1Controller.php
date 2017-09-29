@@ -19,7 +19,7 @@ class RabbitProducerTest1Controller extends Controller
      */
     public function indexAction()
     {
-        return $this->render('Test1Bundle:rabbit_producer_test_1:index.html.twig');
+        return $this->render('AppBundle:rabbit_producer_test_1:index.html.twig');
     }
 
     /**
@@ -38,6 +38,6 @@ class RabbitProducerTest1Controller extends Controller
         }
 
         // return $this->redirectToRoute('rabbit_producer_test_1_index');
-        return $this->render('Test1Bundle:rabbit_producer_test_1:produce.html.twig');
+        return $this->render('AppBundle:rabbit_producer_test_1:produce.html.twig');
     }
 }

@@ -1,9 +1,10 @@
+{# TODO: Remove it later. #}
 {% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
-    '@Test1Bundle/Resources/public/js/common.js'
+    '@AppBundle/Resources/public/js/common.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

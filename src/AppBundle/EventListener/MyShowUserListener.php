@@ -2,7 +2,7 @@
 namespace AppBundle\EventListener;
 
 use Avanzu\AdminThemeBundle\Event\ShowUserEvent;
-use Test1Bundle\Entity\User;
+use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class MyShowUserListener

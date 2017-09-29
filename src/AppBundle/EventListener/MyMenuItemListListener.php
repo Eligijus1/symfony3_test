@@ -3,7 +3,7 @@
 namespace AppBundle\EventListener;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Test1Bundle\Model\MenuItemModel;
+use AppBundle\Model\MenuItemModel;
 use Avanzu\AdminThemeBundle\Event\SidebarMenuEvent;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -60,7 +60,7 @@ class CompanyController extends BaseController
         );
 
         // Return prepared list:
-        return $this->render('Test1Bundle:Company:index.html.twig', array(
+        return $this->render('AppBundle:Company:index.html.twig', array(
             'companies' => $pagination,
             'pageSize' => $pageSize,
             'pageNumber' => $pageNumber,
@@ -83,7 +83,7 @@ class CompanyController extends BaseController
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
 
         $company = new Company();
-        $form = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $form = $this->createForm('AppBundle\Form\CompanyType', $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,7 +94,7 @@ class CompanyController extends BaseController
             return $this->redirectToRoute('company_show', array('id' => $company->getId()));
         }
 
-        return $this->render('Test1Bundle:Company:new.html.twig', array(
+        return $this->render('AppBundle:Company:new.html.twig', array(
             'company' => $company,
             'form' => $form->createView(),
         ));
@@ -113,7 +113,7 @@ class CompanyController extends BaseController
     {
         $deleteForm = $this->createDeleteForm($company);
 
-        return $this->render('Test1Bundle:Company:show.html.twig', array(
+        return $this->render('AppBundle:Company:show.html.twig', array(
             'company' => $company,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -132,7 +132,7 @@ class CompanyController extends BaseController
     public function editAction(Request $request, Company $company)
     {
         $deleteForm = $this->createDeleteForm($company);
-        $editForm = $this->createForm('Test1Bundle\Form\CompanyType', $company);
+        $editForm = $this->createForm('AppBundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -143,7 +143,7 @@ class CompanyController extends BaseController
             return $this->redirectToRoute('company_edit', array('id' => $company->getId()));
         }
 
-        return $this->render('Test1Bundle:Company:edit.html.twig', array(
+        return $this->render('AppBundle:Company:edit.html.twig', array(
             'company' => $company,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

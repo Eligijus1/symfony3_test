@@ -1,5 +1,5 @@
 <?php
-namespace Test1Bundle\Model;
+namespace AppBundle\Model;
 
 use Avanzu\AdminThemeBundle\Model\MenuItemInterface;
 

@@ -119,7 +119,7 @@ old_sound_rabbit_mq:
 assetic:
     debug:          '%kernel.debug%'
     use_controller: '%kernel.debug%'
-    bundles: [ 'Test1Bundle' ]
+    bundles: [ 'AppBundle' ]
 
 hwi_oauth:
     #this is my custom user provider, created from FOSUBUserProvider - will manage the

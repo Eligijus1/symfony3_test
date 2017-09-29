@@ -1,10 +1,9 @@
 <?php
 
-namespace Test1Bundle\Repository;
+namespace AppBundle\Entity\Repository;
 
-use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * UserRepository

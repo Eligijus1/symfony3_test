@@ -13,8 +13,6 @@ class DashboardController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        return $this->render('AppBundle:Dashboard:index.html.twig', array(
-            'users' => 1,
-        ));
+        return $this->render('AppBundle:Dashboard:index.html.twig', []);
     }
 }

@@ -17,7 +17,7 @@ class SecurityController extends Controller
         $authenticationUtils = $this->get('security.authentication_utils');
 
         return $this->render(
-            'Test1Bundle:Security:login.html.twig',
+            'AppBundle:Security:login.html.twig',
             array(
                 // last username entered by the user
                 'last_username' => $authenticationUtils->getLastUsername(),

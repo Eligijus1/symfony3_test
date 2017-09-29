@@ -1,4 +1,4 @@
-{% extends 'Test1Bundle::base.html.twig' %}
+{% extends 'AppBundle::base-layout.html.twig' %}
 
 {% block title %} Test system {% endblock %}
 
@@ -89,5 +89,5 @@
         </div>
     </div>
 
-    {% include 'Test1Bundle:Modal:delete_modal.html.twig' %}
+    {% include 'AppBundle:Modal:delete_modal.html.twig' %}
 {% endblock %}

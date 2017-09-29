@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Test1Bundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User'
         ));
     }
 }

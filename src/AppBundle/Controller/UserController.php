@@ -33,7 +33,7 @@ class UserController extends Controller
         ));
         */
 
-        return $this->render('Test1Bundle:User:index.html.twig', array(
+        return $this->render('AppBundle:User:index.html.twig', array(
             'users' => $users,
         ));
     }
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm('Test1Bundle\Form\UserType', $user);
+        $form = $this->createForm('AppBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,7 +58,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
-        return $this->render('Test1Bundle:User:new.html.twig', array(
+        return $this->render('AppBundle:User:new.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
         ));
@@ -85,11 +85,15 @@ class UserController extends Controller
      *
      * @Route("/{id}/edit", name="user_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('Test1Bundle\Form\UserType', $user);
+        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -100,7 +104,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
 
-        return $this->render('Test1Bundle:User:edit.html.twig', array(
+        return $this->render('AppBundle:User:edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
