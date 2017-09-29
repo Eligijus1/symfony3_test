@@ -16,10 +16,6 @@ app_bundle_routing:
     resource: "@AppBundle/Resources/config/routing.yml"
     prefix:   /
 
-test1:
-    resource: "@Test1Bundle/Resources/config/routing.yml"
-    prefix:   /
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -72,11 +68,6 @@ facebook_login:
 
 google_login:
     path: /login/check-google
-
-# Dashboard:
-dashboard:
-    path: /dashboard
-    defaults: { _controller: AppBundle:Dashboard:index }
 
 #sale_items_dump_list:
 #    path: /sale-items-dump

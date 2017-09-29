@@ -1,3 +1,19 @@
+# Define security required controls (login/logout):
+security_login_form:
+    path:     /login
+    defaults: { _controller: AppBundle:Security:login }
+security_logout:
+    path:     /logout
+    defaults: { _controller: AppBundle:Security:logout }
+security_login_check:
+   path:     /login_check
+   defaults: { _controller: AppBundle:Security:loginCheck }
+
+avanzu_admin_profile:
+    path: /profile/{userid}/
+avanzu_admin_logout:
+    path: /logout
+
 # Comments routing (routing defined in controller):
 comments:
     resource: "@AppBundle/Controller/CommentController.php"
@@ -17,3 +33,13 @@ rabbit_producer_test_1:
 users:
     resource: "@AppBundle/Controller/UserController.php"
     type:     annotation
+
+# Define root:
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+
+# Dashboard:
+dashboard:
+    path: /dashboard
+    defaults: { _controller: AppBundle:Dashboard:index }
