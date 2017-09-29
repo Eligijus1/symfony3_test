@@ -6,7 +6,7 @@
  * Time: 10:06
  */
 
-namespace Test1Bundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Company
  *
  * @ORM\Table(name="company")
- * @ORM\Entity(repositoryClass="Test1Bundle\Entity\Repository\CompanyRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CompanyRepository")
  */
 class Company
 {

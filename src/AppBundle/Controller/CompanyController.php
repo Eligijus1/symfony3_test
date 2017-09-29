@@ -9,8 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Test1Bundle\Entity\Company;
-use Test1Bundle\Entity\Manager\CompanyManager;
+use AppBundle\Entity\Company;
+use AppBundle\Entity\Manager\CompanyManager;
 
 /**
  * Company controller.
@@ -46,7 +46,7 @@ class CompanyController extends BaseController
         // Prepare query:
         $qb = $em->createQueryBuilder();
         $qb->select("entity");
-        $qb->from("\\Test1Bundle\\Entity\\Company", "entity");
+        $qb->from("\\AppBundle\\Entity\\Company", "entity");
         $query = $em->createQuery($qb->getQuery()->getDQL());
 
         // Prepare paginator:

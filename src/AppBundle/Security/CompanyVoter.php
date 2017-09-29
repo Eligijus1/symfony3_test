@@ -4,7 +4,7 @@ namespace AppBundle\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Test1Bundle\Entity\User;
+use AppBundle\Entity\User;
 
 class CompanyVoter extends Voter
 {

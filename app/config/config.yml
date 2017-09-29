@@ -73,9 +73,9 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: Test1Bundle\Entity\User
+    user_class: AppBundle\Entity\User
     group:
-        group_class: Test1Bundle\Entity\Group
+        group_class: AppBundle\Entity\Group
     from_email:
         address: "noreply@symfony3_test.com"
         sender_name: "No Reply"

@@ -1,14 +1,14 @@
 <?php
 
-namespace Test1Bundle\Entity\Manager;
+namespace AppBundle\Entity\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Test1Bundle\Entity\Company;
-use Test1Bundle\Entity\Repository\CompanyRepository;
+use AppBundle\Entity\Company;
+use AppBundle\Entity\Repository\CompanyRepository;
 
 /**
  * Class CompanyManager
- * @package Test1Bundle\Entity\Manager
+ * @package AppBundle\Entity\Manager
  */
 class CompanyManager
 {

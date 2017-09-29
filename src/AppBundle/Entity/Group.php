@@ -14,7 +14,7 @@
  * http://www.nfq.lt
  */
 
-namespace Test1Bundle\Entity;
+namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test1Bundle\Entity\Repository;
+namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

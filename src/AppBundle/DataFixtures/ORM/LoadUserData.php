@@ -10,7 +10,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Test1Bundle\Entity\User;
+use AppBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,7 +32,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
         $userAdmin->setIsActive(true);
-        $userAdmin->setEmail("admin@Test1Bundle.lt");
+        $userAdmin->setEmail("admin@test.lt");
 
         // Prepare password:
         $encoder = $this->container->get('security.password_encoder');

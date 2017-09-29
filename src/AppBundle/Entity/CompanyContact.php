@@ -6,7 +6,7 @@
  * Time: 10:07
  */
 
-namespace Test1Bundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -70,9 +70,9 @@ class CompanyContact
     private $id;
 
     /**
-     * @var \Test1Bundle\Entity\Company
+     * @var \AppBundle\Entity\Company
      *
-     * @ORM\ManyToOne(targetEntity="Test1Bundle\Entity\Company")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Company")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      * })
@@ -238,11 +238,11 @@ class CompanyContact
     /**
      * Set company
      *
-     * @param \Test1Bundle\Entity\Company $company
+     * @param \AppBundle\Entity\Company $company
      *
      * @return CompanyContact
      */
-    public function setCompany(\Test1Bundle\Entity\Company $company = null)
+    public function setCompany(\AppBundle\Entity\Company $company = null)
     {
         $this->company = $company;
 
@@ -252,7 +252,7 @@ class CompanyContact
     /**
      * Get company
      *
-     * @return \Test1Bundle\Entity\Company
+     * @return \AppBundle\Entity\Company
      */
     public function getCompany()
     {

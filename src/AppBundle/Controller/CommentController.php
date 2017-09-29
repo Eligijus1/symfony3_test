@@ -2,18 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Test1Bundle\Entity\Comment;
 
 /**
  * Comment controller.
@@ -45,7 +41,7 @@ class CommentController extends BaseController
         // Prepare query:
         $qb = $em->createQueryBuilder();
         $qb->select("entity");
-        $qb->from("\\Test1Bundle\\Entity\\Comment", "entity");
+        $qb->from("\\AppBundle\\Entity\\Comment", "entity");
         $query = $em->createQuery($qb->getQuery()->getDQL());
 
         // Prepare paginator:
@@ -76,7 +72,7 @@ class CommentController extends BaseController
     public function newAction(Request $request)
     {
         $comment = new Comment();
-        $form    = $this->createForm('Test1Bundle\Form\CommentType', $comment);
+        $form    = $this->createForm('AppBundle\Form\CommentType', $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
