@@ -1,16 +1,13 @@
 {% extends 'AppBundle::base-layout.html.twig' %}
 
-{% block title %} Test system {% endblock %}
+{#{% block title %} Test system {% endblock %}#}
 
 {% block page_subtitle %} {% endblock %}
 
 {% block page_title %} Companies {% endblock %}
 
 {% block page_content %}
-
-
     <div class="box">
-
         <div class="box-header with-border">
             <h3 class="box-title">Companies list</h3>
             {% if is_granted('ROLE_CAN_MANAGE_COMPANIES') %}
@@ -28,7 +25,6 @@
                     {# sorting of properties based on query components #}
                     <th>{{ knp_pagination_sortable(companies, 'Id', 'entity.id') }}</th>
                     <th class="sorting">{{ knp_pagination_sortable(companies, 'Name', 'entity.name') }}</th>
-                    <th>Description</th>
                     <th>Createby</th>
                     <th>Createdate</th>
                     <th>Modifyby</th>
@@ -41,7 +37,6 @@
                     <tr>
                         <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
                         <td>{{ company.name }}</td>
-                        <td>{{ company.description }}</td>
                         <td>{{ company.createBy }}</td>
                         <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>{{ company.modifyBy }}</td>

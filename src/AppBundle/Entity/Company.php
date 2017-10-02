@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CompanyRepository")
  */
-class Company
+class Company extends TimestampedEntity
 {
     /**
      * @var string
@@ -35,16 +35,9 @@ class Company
     /**
      * @var integer
      *
-     * @ORM\Column(name="create_by", type="integer", nullable=false)
+     * @ORM\Column(name="create_by", type="integer", nullable=true)
      */
     private $createBy;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="create_date", type="datetime", nullable=false)
-     */
-    private $createDate;
 
     /**
      * @var integer
@@ -52,13 +45,6 @@ class Company
      * @ORM\Column(name="modify_by", type="integer", nullable=true)
      */
     private $modifyBy;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="modify_date", type="datetime", nullable=true)
-     */
-    private $modifyDate;
 
     /**
      * @var integer
@@ -142,30 +128,6 @@ class Company
     }
 
     /**
-     * Set createDate
-     *
-     * @param \DateTime $createDate
-     *
-     * @return Company
-     */
-    public function setCreateDate($createDate)
-    {
-        $this->createDate = $createDate;
-
-        return $this;
-    }
-
-    /**
-     * Get createDate
-     *
-     * @return \DateTime
-     */
-    public function getCreateDate()
-    {
-        return $this->createDate;
-    }
-
-    /**
      * Set modifyBy
      *
      * @param integer $modifyBy
@@ -187,30 +149,6 @@ class Company
     public function getModifyBy()
     {
         return $this->modifyBy;
-    }
-
-    /**
-     * Set modifyDate
-     *
-     * @param \DateTime $modifyDate
-     *
-     * @return Company
-     */
-    public function setModifyDate($modifyDate)
-    {
-        $this->modifyDate = $modifyDate;
-
-        return $this;
-    }
-
-    /**
-     * Get modifyDate
-     *
-     * @return \DateTime
-     */
-    public function getModifyDate()
-    {
-        return $this->modifyDate;
     }
 
     /**

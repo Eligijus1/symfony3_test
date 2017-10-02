@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CompanyType;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
@@ -83,10 +84,13 @@ class CompanyController extends BaseController
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
 
         $company = new Company();
-        $form = $this->createForm('AppBundle\Form\CompanyType', $company);
+        $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Add user information:
+            //$company->setCreateBy();
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($company);
             $em->flush();
