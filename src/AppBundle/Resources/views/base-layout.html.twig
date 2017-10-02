@@ -100,6 +100,35 @@
 
         <!-- Main content -->
         <section class="content">
+            <div id="callout-area">
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="pad no-print">
+                        <div class="callout callout-danger">{{ flashMessage }}</div>
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('info') %}
+                    <div class="pad no-print">
+                        <div class="callout callout-info">{{ flashMessage }}</div>
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('warning') %}
+                    <div class="pad no-print">
+                        <div class="callout callout-warning">{{ flashMessage }}</div>
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    {#
+                    <div class="pad no-print">
+                        <div class="callout callout-success">{{ flashMessage }}</div>
+                    </div>
+                    #}
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-check"></i>{{ 'Success'|trans }}</h4>
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
             {% block page_content %}{% endblock %}
         </section>
         <!-- /.content -->
