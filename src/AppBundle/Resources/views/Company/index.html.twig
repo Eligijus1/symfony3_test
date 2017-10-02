@@ -2,14 +2,14 @@
 
 {#{% block title %} Test system {% endblock %}#}
 
-{% block page_subtitle %} {% endblock %}
+{#{% block page_subtitle %} {% endblock %}#}
 
-{% block page_title %} Companies {% endblock %}
+{% block page_title %}{{ 'company.companies'|trans }}{% endblock %}
 
 {% block page_content %}
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Companies list</h3>
+            <h3 class="box-title">{{ 'company.list'|trans }}</h3>
             {% if is_granted('ROLE_CAN_MANAGE_COMPANIES') %}
                 <div class="pull-right box-tools">
                     <a class="btn btn-info btn-sm" href="{{ path('company_new') }}"><i class="fa fa-plus"></i>
@@ -23,13 +23,13 @@
                 <thead>
                 <tr>
                     {# sorting of properties based on query components #}
-                    <th>{{ knp_pagination_sortable(companies, 'Id', 'entity.id') }}</th>
-                    <th class="sorting">{{ knp_pagination_sortable(companies, 'Name', 'entity.name') }}</th>
-                    <th>Createby</th>
-                    <th>Createdate</th>
-                    <th>Modifyby</th>
-                    <th>Modifydate</th>
-                    <th>Actions</th>
+                    <th>{{ knp_pagination_sortable(companies, 'company.id'|trans, 'entity.id') }}</th>
+                    <th class="sorting">{{ knp_pagination_sortable(companies, 'company.name'|trans, 'entity.name') }}</th>
+                    <th>{{ 'system_fields.created_by'|trans }}</th>
+                    <th>{{ 'system_fields.created_date'|trans }}</th>
+                    <th>{{ 'system_fields.modified_by'|trans }}</th>
+                    <th>{{ 'system_fields.modify_date'|trans }}</th>
+                    <th>{{ 'actions.actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>

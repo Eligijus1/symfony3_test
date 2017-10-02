@@ -1,6 +1,10 @@
 Remove: Remove
-AvanzuAdminTheme:
-    Profile: Profile
+system_fields:
+    created_by: Created by
+    created_date: Created date
+    modified_by: Modified by
+    modify_date: Modified date
+
 actions:
     approve: Approve
     add: Add
@@ -30,6 +34,7 @@ actions:
     move_down: Move Down
     move_up: Move Up
 company:
+    companies: Companies
     list: List of companies
     id: ID
     name: Name
