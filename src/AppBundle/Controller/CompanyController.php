@@ -95,7 +95,22 @@ class CompanyController extends BaseController
             $em->persist($company);
             $em->flush();
 
-            return $this->redirectToRoute('company_show', array('id' => $company->getId()));
+            /*
+            $this->addFlash(
+                'success',
+                $translator->trans(
+                    'price_rule_names.actions.new.success',
+                    ['name_id' => $saleItemPriceRuleName->getId()]
+                )
+            );
+            */
+            $this->addFlash(
+                'success',
+                'Added new record.'
+            );
+
+            //return $this->redirectToRoute('company_show', array('id' => $company->getId()));
+            return $this->redirectToRoute('company_index');
         }
 
         return $this->render('AppBundle:Company:new.html.twig', array(

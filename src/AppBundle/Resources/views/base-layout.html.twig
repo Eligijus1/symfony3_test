@@ -1,10 +1,15 @@
 {% import "AvanzuAdminThemeBundle:layout:macros.html.twig" as macro %}
 <!doctype html>
-<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7 ]>
+<html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>
+<html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>
+<html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>
+<html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta name="author" content="">
@@ -14,15 +19,17 @@
 
     {# -------------------------------------------------------------------------------------------------- STYLESHEETS #}
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}" />
+        <link rel="stylesheet"
+              href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}"/>
     {% endblock %}
 
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
     {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
-    {%  block javascripts_head %}
-        <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/modernizr.js') }}"></script>
+    {% block javascripts_head %}
+        <script type="text/javascript"
+                src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/modernizr.js') }}"></script>
         <!--[if lt IE 9]>
 
         <![endif]-->
@@ -30,7 +37,7 @@
     {% endblock %}
 
 </head>
-<body class="{{ admin_skin|default('skin-blue')}}">
+<body class="{{ admin_skin|default('skin-blue') }}">
 <div class="wrapper">
 
     {% block avanzu_admin_header %}
@@ -70,7 +77,7 @@
             {% block avanzu_sidebar %}
                 {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ render(controller('AvanzuAdminThemeBundle:Sidebar:userPanel')) }}
-                   {#{ render(controller('AvanzuAdminThemeBundle:Sidebar:searchForm')) }#}
+                    {#{ render(controller('AvanzuAdminThemeBundle:Sidebar:searchForm')) }#}
                 {% endif %}
                 {{ render(controller('AvanzuAdminThemeBundle:Sidebar:menu', {'request':app.request})) }}
             {% endblock %}
@@ -104,7 +111,8 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.0
             </div>
-            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All
+            rights reserved.
         </footer>
     {% endblock %}
 
@@ -113,10 +121,13 @@
 
 {# ------------------------------------------------------------------------------------------------------ JAVASCRIPTS #}
 {% block javascripts %}
-
     <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
-
+    {% javascripts
+    '@AppBundle/Resources/public/js/common.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
+
 
 {# ----------------------------------------------------------------------------------------------- JAVASCRIPTS_INLINE #}
 {% block javascripts_inline %}

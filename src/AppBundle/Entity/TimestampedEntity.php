@@ -19,6 +19,8 @@ abstract class TimestampedEntity
     private $createDate;
 
     /**
+     * NOTE: Notice! Currently in MySQL migrations should be defined: `DATETIME on update CURRENT_TIMESTAMP`.
+     *
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
