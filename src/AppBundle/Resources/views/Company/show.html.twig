@@ -4,60 +4,71 @@
 
 {% block page_title %}Companies{% endblock %}
 
-{% block page_subtitle %} {% endblock %}
-
 {% block page_content %}
     <div class="box">
 
-    <div class="box-header with-border">
-        <h3 class="box-title">Company preview</h3>
-        <div class="pull-right box-tools">
-            <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i> List</a>
-            <a class="btn btn-info btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}"><i class="fa fa-edit"></i> Edit</a>
-            <a class="btn btn-danger btn-sm"
-               href="#"><i class="fa fa-remove"></i> Delete</a>
+        <div class="box-header with-border">
+            <h3 class="box-title">Company preview</h3>
+            {#
+            <div class="pull-right box-tools">
+                <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i> List</a>
+                <a class="btn btn-info btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}"><i class="fa fa-edit"></i> Edit</a>
+                <a class="btn btn-danger btn-sm"
+                   href="#"><i class="fa fa-remove"></i> Delete</a>
+            </div>
+            #}
         </div>
-    </div>
 
-    <!-- /.box-header -->
-    <div class="box-body">
-        <table width="100%">
-            <tr>
-                <td width="10%" align="right"><b>Id:</b></td>
-                <td>&nbsp;</td>
-                <td width="90%">{{ company.id }}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Name:</b></td>
-                <td>&nbsp;</td>
-                <td>{{ company.name }}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Description:</b></td>
-                <td>&nbsp;</td>
-                <td>{{ company.description }}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Create by:</b></td>
-                <td>&nbsp;</td>
-                <td>{{ company.createBy }}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Create date:</b></td>
-                <td>&nbsp;</td>
-                <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Modify by:</b></td>
-                <td>&nbsp;</td>
-                <td>{{ company.modifyBy }}</td>
-            </tr>
-            <tr>
-                <td align="right"><b>Modify date:</b></td>
-                <td>&nbsp;</td>
-                <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </table>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table width="100%">
+                <tr>
+                    <td width="10%" align="right"><b>Id:</b></td>
+                    <td>&nbsp;</td>
+                    <td width="90%">{{ company.id }}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Name:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{{ company.name }}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Description:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{{ company.description }}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Create by:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{{ company.createBy }}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Create date:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Modify by:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{{ company.modifyBy }}</td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Modify date:</b></td>
+                    <td>&nbsp;</td>
+                    <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box-footer clearfix">
+            <div class="pull-left box-tools">
+                <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i> List</a>
+                <a class="btn btn-info btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}"><i
+                            class="fa fa-edit"></i> Edit</a>
+                <a class="btn btn-danger btn-sm"
+                   href="#"><i class="fa fa-remove"></i> Delete</a>
+            </div>
+        </div>
     </div>
     <!-- /.box-body -->
 {% endblock %}

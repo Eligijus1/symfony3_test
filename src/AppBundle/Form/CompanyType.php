@@ -21,12 +21,12 @@ class CompanyType extends AbstractType
             ->add(
                 'name',
                 TextType::class,
-                ['label' => 'price_rule_names.name', 'attr' => $options['attr']]
+                ['label' => 'company.name', 'attr' => $options['attr']]
             )
             ->add(
                 'description',
                 TextareaType::class,
-                ['label' => 'price_rule_names.description', 'required' => false, 'attr' => $options['attr']]
+                ['label' => 'company.description', 'required' => false, 'attr' => $options['attr']]
             );
 //            ->add('createBy')
 //            ->add('createDate', DateTimeType::class)
@@ -34,7 +34,7 @@ class CompanyType extends AbstractType
 //            ->add('modifyDate', DateTimeType::class)
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

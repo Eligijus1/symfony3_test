@@ -159,7 +159,8 @@ class CompanyController extends BaseController
             $em->persist($company);
             $em->flush();
 
-            return $this->redirectToRoute('company_edit', array('id' => $company->getId()));
+            // return $this->redirectToRoute('company_edit', array('id' => $company->getId()));
+            return $this->redirectToRoute('company_index');
         }
 
         return $this->render('AppBundle:Company:edit.html.twig', array(

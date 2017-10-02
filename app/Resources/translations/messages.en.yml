@@ -34,6 +34,7 @@ actions:
     pricing: Pricing
     move_down: Move Down
     move_up: Move Up
+    list: List
 company:
     companies: Companies
     list: List of companies

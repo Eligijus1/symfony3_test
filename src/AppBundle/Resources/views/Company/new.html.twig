@@ -20,10 +20,19 @@
                     {{ form_widget(form) }}
                 </div>
                 <div class="box-footer clearfix">
-
+                    <div class="pull-left box-tools">
+                        <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i>
+                            {{ 'actions.list'|trans }}</a>
+                        <button type="reset" class="btn btn-warning btn-sm"><i
+                                    class="fa fa-times"></i>{{ 'actions.cancel'|trans }}</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i
+                                    class="fa fa-check-square"></i>{{ 'actions.save'|trans }}
+                        </button>
+                    </div>
+                    {#
                     <button type="reset" class="btn btn-warning pull-left"><i class="fa fa-times"></i> Cancel</button>
                     <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-square"></i> Submit</button>
-
+                    #}
                 </div>
                 {{ form_end(form) }}
 
