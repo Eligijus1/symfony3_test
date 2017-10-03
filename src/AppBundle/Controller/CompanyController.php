@@ -73,13 +73,37 @@ class CompanyController extends BaseController
             $pageSize/*limit per page*/
         );
 
-        // Return prepared list:
-        return $this->render('AppBundle:Company:index.html.twig', array(
-            'companies' => $pagination,
+//        // Return prepared list:
+//        return $this->render('AppBundle:Company:index.html.twig', array(
+//            'companies' => $pagination,
+//            'pageSize' => $pageSize,
+//            'pageNumber' => $pageNumber,
+//            'pageStartRecord' => $pageStartRecord,
+//            'pageEndRecord' => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
+//        ));
+
+        return $this->render('AppBundle:CRUD:index.html.twig', array(
+            'pagination' => $pagination,
             'pageSize' => $pageSize,
             'pageNumber' => $pageNumber,
             'pageStartRecord' => $pageStartRecord,
-            'pageEndRecord' => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
+            'pageEndRecord' => $pageEndRecord > $pagination->getTotalItemCount()
+                ? $pagination->getTotalItemCount()
+                : $pageEndRecord,
+            'page_title' => $this->translator->trans('company.companies'),
+            'box_title' => $this->translator->trans('company.list'),
+            'path_to_view' => "company_view",
+            'path_to_edit' => "company_edit",
+            'path_to_delete' => "company_delete",
+            'delete_warning' => 'company.actions.delete.warning',
+            'data' => [
+                $this->translator->trans('company.id') => 'id',
+                $this->translator->trans('company.name') => 'name',
+                $this->translator->trans('system_fields.created_by') => 'createBy',
+                $this->translator->trans('system_fields.created_date') => 'createDate',
+                $this->translator->trans('system_fields.modified_by') => 'modifyBy',
+                $this->translator->trans('system_fields.modify_date') => 'modifyDate',
+            ]
         ));
     }
 
@@ -135,59 +159,58 @@ class CompanyController extends BaseController
     }
 
     /**
-     * @param Company $company
+     * @param Company $entity
      *
      * @return Response
      */
-    public function showAction(Company $company): Response
+    public function showAction(Company $entity): Response
     {
         $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
 
         return $this->render('AppBundle:CRUD:view.html.twig', array(
             'page_title' => $this->translator->trans('company.companies'),
-            'box_title' => $this->translator->trans('company.actions.view.label', ['id' => $company->getId()]),
+            'box_title' => $this->translator->trans('company.actions.view.label', ['id' => $entity->getId()]),
             'path_to_list' => $this->generateUrl('company_index'),
             'data' => [
-                $this->translator->trans('company.id') => $company->getId(),
-                $this->translator->trans('company.name') => $company->getName(),
-                $this->translator->trans('company.description') => $company->getDescription(),
-                $this->translator->trans('system_fields.created_by') => $company->getCreateBy()->getFullName(),
-                $this->translator->trans('system_fields.created_date') => $company->getCreateDateAsString(),
-                $this->translator->trans('system_fields.modified_by') => $company->getModifyByFullName(),
-                $this->translator->trans('system_fields.modify_date') => $company->getModifyDateAsString(),
+                $this->translator->trans('company.id') => $entity->getId(),
+                $this->translator->trans('company.name') => $entity->getName(),
+                $this->translator->trans('company.description') => $entity->getDescription(),
+                $this->translator->trans('system_fields.created_by') => $entity->getCreateBy()->getFullName(),
+                $this->translator->trans('system_fields.created_date') => $entity->getCreateDateAsString(),
+                $this->translator->trans('system_fields.modified_by') => $entity->getModifyByFullName(),
+                $this->translator->trans('system_fields.modify_date') => $entity->getModifyDateAsString(),
             ]
         ));
     }
 
     /**
      * @param Request $request
-     * @param Company $company
+     * @param Company $entity
      *
      * @return Response
      */
-    public function editAction(Request $request, Company $company): Response
+    public function editAction(Request $request, Company $entity): Response
     {
         /** @var User $user */
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
 
         $user = $this->getUser();
 
-        $editForm = $this->createForm('AppBundle\Form\CompanyType', $company);
+        $editForm = $this->createForm('AppBundle\Form\CompanyType', $entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $company->setModifyBy($user);
-            $company->setModifyDate(new \DateTime());
+            $entity->setModifyBy($user);
+            $entity->setModifyDate(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($company);
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirectToRoute('company_index');
         }
 
         return $this->render('AppBundle:CRUD:edit.html.twig', array(
-            'entity' => $company,
             'form' => $editForm->createView(),
             'page_title' => $this->translator->trans('company.companies'),
             'box_title' => $this->translator->trans('company.actions.edit.label'),
@@ -196,14 +219,16 @@ class CompanyController extends BaseController
     }
 
     /**
-     * @param int $id
+     * @param Company $entity
      *
      * @return JsonResponse
      */
-    public function deleteAction(int $id): JsonResponse
+    public function deleteAction(Company $entity): JsonResponse
     {
+        $id = $entity->getId();
+
         try {
-            $this->companyManager->deleteById($id);
+            $this->companyManager->delete($entity);
         } catch (\Throwable $e) {
             return $this->createErrorResponse($this->translator->trans('company.actions.delete.error',
                 ['error_message' => $e->getMessage()]));

@@ -12,16 +12,16 @@ company_add:
     methods: ["GET", "POST"]
 
 company_edit:
-    path: "/edit/{company}"
+    path: "/edit/{entity}"
     defaults: {_controller: "controller.company:editAction"}
     methods: ["GET", "POST"]
 
 company_view:
-    path: "/view/{company}"
+    path: "/view/{entity}"
     defaults: {_controller: "controller.company:showAction"}
     methods: ["GET"]
 
 company_delete:
-    path: "/delete/{id}"
+    path: "/delete/{entity}"
     defaults: {_controller: "controller.company:deleteAction"}
     methods: ["POST"]
