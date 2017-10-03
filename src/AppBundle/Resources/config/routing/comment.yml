@@ -3,7 +3,23 @@ comment_index:
     path: "/"
     defaults: {_controller: "controller.comment:indexAction"}
     methods: ["GET"]
+
 comment_add:
     path: "/add"
     defaults: {_controller: "controller.comment:newAction"}
     methods: ["GET", "POST"]
+
+comment_view:
+    path: "/view/{comment}"
+    defaults: {_controller: "controller.comment:showAction"}
+    methods: ["GET"]
+
+comment_edit:
+    path: "/edit/{comment}"
+    defaults: {_controller: "controller.comment:editAction"}
+    methods: ["GET", "POST"]
+
+comment_delete:
+    path: "/delete/{id}"
+    defaults: {_controller: "controller.comment:deleteAction"}
+    methods: ["POST"]

@@ -21,22 +21,21 @@
 
         <!-- /.box-header -->
         <div class="box-body">
+            <div class="row">
+                <dl class="dl-horizontal">
+                    <dt>{{ 'company.id'|trans }}</dt>
+                    <dd>{{ company.id }}</dd>
+
+                    <dt>{{ 'company.name'|trans }}</dt>
+                    <dd>{{ company.name }}</dd>
+
+                    <dt>{{ 'company.description'|trans }}</dt>
+                    <dd>{{ company.description }}</dd>
+                </dl>
+            </div>
+            {#
             <table width="100%">
-                <tr>
-                    <td width="10%" align="right"><b>Id:</b></td>
-                    <td>&nbsp;</td>
-                    <td width="90%">{{ company.id }}</td>
-                </tr>
-                <tr>
-                    <td align="right"><b>Name:</b></td>
-                    <td>&nbsp;</td>
-                    <td>{{ company.name }}</td>
-                </tr>
-                <tr>
-                    <td align="right"><b>Description:</b></td>
-                    <td>&nbsp;</td>
-                    <td>{{ company.description }}</td>
-                </tr>
+
                 <tr>
                     <td align="right"><b>Create by:</b></td>
                     <td>&nbsp;</td>
@@ -58,6 +57,7 @@
                     <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 </tr>
             </table>
+            #}
         </div>
 
         <div class="box-footer clearfix">

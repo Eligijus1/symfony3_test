@@ -62,3 +62,20 @@ comment:
     comments: Comments
     id: ID
     comment: Comment
+    actions:
+        actions: Actions
+        new:
+            label: Add new comment
+            success: "Successfully added comment with id #id"
+        view:
+            label: "View Comment #id"
+            form_label: "Comment #id"
+        save:
+            label: Save
+        edit:
+            label: "Edit comment #id"
+            success: "Successfully updated comment with id #id"
+        delete:
+            success: "Comment with id #id was successfully deleted"
+            warning: "<p>You are about to delete comment #<b><i class=\"title\"></i></b>, this procedure is irreversible.</p><p>Do you want to proceed?</p>"
+            error: "Could not delete comment: error_message"

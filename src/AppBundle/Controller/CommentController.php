@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * Comment controller.
- *
- * @Route("/comment")
- */
 class CommentController extends BaseController
 {
     /**
@@ -30,14 +25,11 @@ class CommentController extends BaseController
     }
 
     /**
-     * Lists all Comment entities.
-     *
-     * @Route("/", name="comment_index")
-     * @Method("GET")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         // Define paging required variables:
         $pageSize        = 10;
@@ -90,6 +82,7 @@ class CommentController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreateBy($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
@@ -119,12 +112,11 @@ class CommentController extends BaseController
     }
 
     /**
-     * Finds and displays a Comment entity.
+     * @param Comment $comment
      *
-     * @Route("/{id}", name="comment_show")
-     * @Method("GET")
+     * @return Response
      */
-    public function showAction(Comment $comment)
+    public function showAction(Comment $comment): Response
     {
         $deleteForm = $this->createDeleteForm($comment);
 
@@ -135,22 +127,19 @@ class CommentController extends BaseController
     }
 
     /**
-     * Displays a form to edit an existing Comment entity.
-     *
-     * @Route("/{id}/edit", name="comment_edit")
-     * @Method({"GET", "POST"})
      * @param Request $request
      * @param Comment $comment
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @return Response
      */
-    public function editAction(Request $request, Comment $comment)
+    public function editAction(Request $request, Comment $comment): Response
     {
-        $authorizationChecker = $this->get('security.authorization_checker');
+//        $authorizationChecker = $this->get('security.authorization_checker');
 
-        // Check for edit access:
-        if (false === $authorizationChecker->isGranted('EDIT', $comment)) {
-            throw new AccessDeniedException();
-        }
+//        // Check for edit access:
+//        if (false === $authorizationChecker->isGranted('EDIT', $comment)) {
+//            throw new AccessDeniedException();
+//        }
 
         $deleteForm = $this->createDeleteForm($comment);
         $editForm   = $this->createForm('AppBundle\Form\CommentType', $comment);
@@ -172,12 +161,12 @@ class CommentController extends BaseController
     }
 
     /**
-     * Deletes a Comment entity.
+     * @param Request $request
+     * @param Comment $comment
      *
-     * @Route("/{id}", name="comment_delete")
-     * @Method("DELETE")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, Comment $comment)
+    public function deleteAction(Request $request, Comment $comment): Response
     {
         $form = $this->createDeleteForm($comment);
         $form->handleRequest($request);
