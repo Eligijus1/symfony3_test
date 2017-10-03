@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class BaseEntity
 {
+    private const DATE_TIME_STRING_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @var \DateTime
      *
@@ -60,6 +62,14 @@ abstract class BaseEntity
     }
 
     /**
+     * @return string
+     */
+    public function getCreateDateAsString(): string
+    {
+        return $this->createDate ? $this->createDate->format(self::DATE_TIME_STRING_FORMAT)  : '';
+    }
+
+    /**
      * @param \DateTime $createDate
      *
      * @return BaseEntity
@@ -76,6 +86,14 @@ abstract class BaseEntity
     public function getModifyDate(): ?\DateTime
     {
         return $this->modifyDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModifyDateAsString(): string
+    {
+        return $this->modifyDate ? $this->modifyDate->format(self::DATE_TIME_STRING_FORMAT)  : '';
     }
 
     /**

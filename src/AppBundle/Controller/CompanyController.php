@@ -129,7 +129,7 @@ class CompanyController extends BaseController
             'form' => $form->createView(),
             'page_title' => $this->translator->trans('company.companies'),
             'box_title' => $this->translator->trans('company.actions.new.label'),
-            'path_to_list' => $this->generateUrl('comment_index')
+            'path_to_list' => $this->generateUrl('company_index')
 
         ));
     }
@@ -143,11 +143,21 @@ class CompanyController extends BaseController
     {
         $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
 
-        $deleteForm = $this->createDeleteForm($company);
+        return $this->render('AppBundle:CRUD:view.html.twig', array(
+            'page_title' => $this->translator->trans('company.companies'),
+            'box_title' => $this->translator->trans('company.actions.view.label', ['id' => $company->getId()]),
+            'path_to_list' => $this->generateUrl('company_index'),
+            'data' => [
+                $this->translator->trans('company.id') => $company->getId(),
+                $this->translator->trans('company.name') => $company->getName(),
+                $this->translator->trans('company.description') => $company->getDescription(),
+                $this->translator->trans('system_fields.created_by') => $company->getCreateBy()->getFullName(),
+                $this->translator->trans('system_fields.created_date') => $company->getCreateDateAsString(),
+                $this->translator->trans('system_fields.modified_by') => $company->getModifyBy()
+                    ? $company->getModifyBy()->getFullName() : null,
+                $this->translator->trans('system_fields.modify_date') => $company->getModifyDateAsString(),
+            ]
 
-        return $this->render('AppBundle:Company:show.html.twig', array(
-            'company' => $company,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -183,7 +193,7 @@ class CompanyController extends BaseController
             'form' => $editForm->createView(),
             'page_title' => $this->translator->trans('company.companies'),
             'box_title' => $this->translator->trans('company.actions.edit.label'),
-            'path_to_list' => $this->generateUrl('comment_index')
+            'path_to_list' => $this->generateUrl('company_index')
         ));
     }
 
@@ -207,20 +217,5 @@ class CompanyController extends BaseController
         );
 
         return $this->createSuccessResponse($this->generateUrl('company_index'));
-    }
-
-    /**
-     * Creates a form to delete a Company entity.
-     *
-     * @param Company $company The Company entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Company $company)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('company_delete', array('id' => $company->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
     }
 }

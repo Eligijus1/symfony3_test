@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base-layout.html.twig' %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block page_content %}
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ box_title }}</h3>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <dl class="dl-horizontal">
+                    {% for key,item in data %}
+                        <dt>{{ key }}:</dt>
+                        <dd>{{ item }}</dd>
+                    {% endfor %}
+                </dl>
+            </div>
+        </div>
+
+        <div class="box-footer clearfix">
+            <div class="pull-left box-tools">
+                <a class="btn btn-info btn-sm"
+                   href="{% block list_form_route %}{{ path_to_list }}{% endblock %}"><i
+                            class="fa fa-list"></i>
+                    {{ 'actions.list'|trans }}</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+
+    {% include 'AppBundle:Modal:delete_modal.html.twig' %}
+{% endblock %}
