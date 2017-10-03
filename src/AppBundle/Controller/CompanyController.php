@@ -9,8 +9,6 @@ use AppBundle\Form\CompanyType;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +22,20 @@ class CompanyController extends BaseController
     private $translator;
 
     /**
+     * @var CompanyManager
+     */
+    private $companyManager;
+
+    /**
      * CompanyController constructor.
      *
      * @param TranslatorInterface $translator
+     * @param CompanyManager      $companyManager
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, CompanyManager $companyManager)
     {
         $this->translator = $translator;
+        $this->companyManager = $companyManager;
     }
 
     /**
@@ -130,7 +135,7 @@ class CompanyController extends BaseController
      *
      * @return Response
      */
-    public function showAction(Company $company)
+    public function showAction(Company $company): Response
     {
         $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
 
@@ -143,16 +148,12 @@ class CompanyController extends BaseController
     }
 
     /**
-     * Displays a form to edit an existing Company entity.
-     *
-     * @Route("/{id}/edit", name="company_edit")
-     * @Method({"GET", "POST"})
      * @param Request $request
      * @param Company $company
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function editAction(Request $request, Company $company)
+    public function editAction(Request $request, Company $company): Response
     {
         /** @var User $user */
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
@@ -185,23 +186,19 @@ class CompanyController extends BaseController
     /**
      * @param int $id
      *
-     * @Route("/{id}", name="company_delete")
-     *
      * @return JsonResponse
      */
     public function deleteAction(int $id) : JsonResponse
     {
         try {
-            /** @var CompanyManager $companyManager */
-            $companyManager = $this->get('manager.company');
-            $companyManager->deleteById($id);
+            $this->companyManager->deleteById($id);
         } catch (\Throwable $e) {
-            return $this->createErrorResponse($this->translator->trans('price_rule_names.actions.delete.error'));
+            return $this->createErrorResponse($this->translator->trans('company.actions.delete.error', ['error_message' => $e->getMessage()]));
         }
 
         $this->addFlash(
             'success',
-            $this->translator->trans('price_rule_names.actions.delete.success', ['name_id' => $id])
+            $this->translator->trans('company.actions.delete.success', ['id' => $id])
         );
 
         return $this->createSuccessResponse($this->generateUrl('company_index'));

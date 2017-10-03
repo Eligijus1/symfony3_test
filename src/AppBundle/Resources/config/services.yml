@@ -1,6 +1,7 @@
 imports:
     - { resource: 'services/controller.yml' }
     - { resource: 'services/repository.yml' }
+    - { resource: 'services/manager.yml' }
 
 parameters:
     my_admin_bundle.show_user_listener.class: AppBundle\EventListener\MyShowUserListener

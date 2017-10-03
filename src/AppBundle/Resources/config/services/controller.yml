@@ -3,4 +3,5 @@ services:
         class: AppBundle\Controller\CompanyController
         arguments:
           - '@translator.default'
+          - '@manager.company'
 

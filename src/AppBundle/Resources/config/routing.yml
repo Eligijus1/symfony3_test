@@ -33,14 +33,19 @@ company_add:
     methods: ["GET", "POST"]
 
 company_edit:
-    path: "/companies/edit"
-    defaults: {_controller: "controller.company:newAction"}
-    methods: ["GET","POST"]
+    path: "/companies/edit/{company}"
+    defaults: {_controller: "controller.company:editAction"}
+    methods: ["GET", "POST"]
 
 company_view:
     path: "/companies/view/{company}"
     defaults: {_controller: "controller.company:showAction"}
     methods: ["GET"]
+
+company_delete:
+    path: "/companies/delete/{id}"
+    defaults: {_controller: "controller.company:deleteAction"}
+    methods: ["POST"]
 
 # Rabbit routing (routing defined in controller):
 rabbit_producer_test_1:
