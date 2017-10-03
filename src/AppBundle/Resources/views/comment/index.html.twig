@@ -7,7 +7,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ 'company.list'|trans }}</h3>
             <div class="pull-right box-tools">
-                <a class="btn btn-info btn-sm" href="{{ path('company_add') }}"><i class="fa fa-plus"></i>
+                <a class="btn btn-info btn-sm" href="{{ path('comment_add') }}"><i class="fa fa-plus"></i>
                     New</a>
             </div>
         </div>
@@ -30,11 +30,12 @@
                     <tr>
                         <td>{{ comment.id }}</td>
                         <td>{{ comment.comment }}</td>
-                        <td>{{ company.createBy.getFullName }}</td>
-                        <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                        <td>{{ company.modifyBy }}</td>
-                        <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{{ comment.createBy.getFullName }}</td>
+                        <td>{% if comment.createDate %}{{ comment.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{{ comment.modifyBy }}</td>
+                        <td>{% if comment.modifyDate %}{{ comment.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>
+                            {#
                             <a class="btn btn-success btn-xs"
                                href="{{ path('company_view', { 'company': company.id }) }}"><i class="fa fa-eye"></i>
                                 View</a>
@@ -48,6 +49,7 @@
                                data-target="#confirm-delete"
                                data-message="{{ 'company.actions.delete.warning'|trans|escape }}">
                                 <i class="fa fa-remove"></i> {{ 'actions.remove'|trans }}</a>
+                             #}
                         </td>
                     </tr>
                 {% endfor %}

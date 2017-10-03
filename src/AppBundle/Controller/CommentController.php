@@ -3,12 +3,15 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\User;
+use AppBundle\Form\CommentType;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -72,18 +75,21 @@ class CommentController extends BaseController
     }
 
     /**
-     * Creates a new Comment entity.
+     * @param Request $request
      *
-     * @Route("/new", name="comment_new")
-     * @Method({"GET", "POST"})
+     * @return Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $comment = new Comment();
-        $form    = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form    = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreateBy($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
@@ -103,8 +109,7 @@ class CommentController extends BaseController
 //            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
 //            $aclProvider->updateAcl($acl);
 
-            // Show view form:
-            return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
+            return $this->redirectToRoute('comment_index');
         }
 
         return $this->render('AppBundle:comment:new.html.twig', array(

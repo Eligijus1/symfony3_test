@@ -3,3 +3,7 @@ comment_index:
     path: "/"
     defaults: {_controller: "controller.comment:indexAction"}
     methods: ["GET"]
+comment_add:
+    path: "/add"
+    defaults: {_controller: "controller.comment:newAction"}
+    methods: ["GET", "POST"]

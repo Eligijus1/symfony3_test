@@ -1,16 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle:CRUD:new.html.twig' %}
 
-{% block body %}
-    <h1>Comment creation</h1>
+{% block page_title %}Comments{% endblock %}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+{% block form_box_title %}Comment create{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('comment_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+{% block list_form_route %}{{ path('comment_index') }}{% endblock %}
