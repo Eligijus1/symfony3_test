@@ -32,7 +32,7 @@ class CompanyController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        //$this->denyAccessUnlessGranted('ROLE_CAN_VIEW_OVERRIDE_RULES');
+        $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
 
         // Define paging required variables:
         $pageSize = 10;
