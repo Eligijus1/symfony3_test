@@ -130,7 +130,7 @@ class MyMenuItemListListener
             if ($item->hasChildren()) {
                 $this->activateByRoute($route, $item->getChildren());
             } else {
-                if ($item->getRoute() == $route || in_array($route, $item->getRouteArgs())) {
+                if ($item->getRoute() === $route || in_array($route, $item->getRouteArgs())) {
                     $item->setIsActive(true);
                 }
             }
