@@ -124,9 +124,13 @@ class CompanyController extends BaseController
             return $this->redirectToRoute('company_index');
         }
 
-        return $this->render('AppBundle:Company:new.html.twig', array(
-            'company' => $company,
+        return $this->render('AppBundle:CRUD:new.html.twig', array(
+            'entity' => $company,
             'form' => $form->createView(),
+            'page_title' => $this->translator->trans('company.companies'),
+            'box_title' => $this->translator->trans('company.actions.new.label'),
+            'path_to_list' => $this->generateUrl('comment_index')
+
         ));
     }
 
