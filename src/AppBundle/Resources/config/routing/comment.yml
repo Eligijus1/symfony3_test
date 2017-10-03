@@ -1,0 +1,5 @@
+# Comments routing (routing defined in controller):
+comment_index:
+    path: "/"
+    defaults: {_controller: "controller.comment:indexAction"}
+    methods: ["GET"]

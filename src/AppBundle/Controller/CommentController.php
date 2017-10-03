@@ -19,6 +19,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class CommentController extends BaseController
 {
     /**
+     * CommentController constructor.
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
      * Lists all Comment entities.
      *
      * @Route("/", name="comment_index")

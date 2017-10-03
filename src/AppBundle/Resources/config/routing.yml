@@ -1,3 +1,10 @@
+company:
+    prefix: /companies
+    resource: "routing/company.yml"
+comment:
+    prefix: /comments
+    resource: "routing/comment.yml"
+
 # Define security required controls (login/logout):
 security_login_form:
     path:     /login
@@ -13,39 +20,6 @@ avanzu_admin_profile:
     path: /profile/{userid}/
 avanzu_admin_logout:
     path: /logout
-
-# Comments routing (routing defined in controller):
-comments:
-    resource: "@AppBundle/Controller/CommentController.php"
-    type:     annotation
-
-# Companies routing (routing defined in controller):
-company_index:
-    path: "/companies"
-    defaults: {_controller: "controller.company:indexAction"}
-    methods: ["GET"]
-#    requirements:
-#        inventoryId: '\d+'
-
-company_add:
-    path: "/companies/add"
-    defaults: {_controller: "controller.company:newAction"}
-    methods: ["GET", "POST"]
-
-company_edit:
-    path: "/companies/edit/{company}"
-    defaults: {_controller: "controller.company:editAction"}
-    methods: ["GET", "POST"]
-
-company_view:
-    path: "/companies/view/{company}"
-    defaults: {_controller: "controller.company:showAction"}
-    methods: ["GET"]
-
-company_delete:
-    path: "/companies/delete/{id}"
-    defaults: {_controller: "controller.company:deleteAction"}
-    methods: ["POST"]
 
 # Rabbit routing (routing defined in controller):
 rabbit_producer_test_1:

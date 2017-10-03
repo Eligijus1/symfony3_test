@@ -1,0 +1,27 @@
+# Companies routing (routing defined in controller):
+company_index:
+    path: "/"
+    defaults: {_controller: "controller.company:indexAction"}
+    methods: ["GET"]
+#    requirements:
+#        inventoryId: '\d+'
+
+company_add:
+    path: "/add"
+    defaults: {_controller: "controller.company:newAction"}
+    methods: ["GET", "POST"]
+
+company_edit:
+    path: "/edit/{company}"
+    defaults: {_controller: "controller.company:editAction"}
+    methods: ["GET", "POST"]
+
+company_view:
+    path: "/view/{company}"
+    defaults: {_controller: "controller.company:showAction"}
+    methods: ["GET"]
+
+company_delete:
+    path: "/delete/{id}"
+    defaults: {_controller: "controller.company:deleteAction"}
+    methods: ["POST"]

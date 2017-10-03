@@ -4,4 +4,5 @@ services:
         arguments:
           - '@translator.default'
           - '@manager.company'
-
+   controller.comment:
+        class: AppBundle\Controller\CommentController
