@@ -164,7 +164,6 @@ class CompanyController extends BaseController
 
         $user = $this->getUser();
 
-        $deleteForm = $this->createDeleteForm($company);
         $editForm = $this->createForm('AppBundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
 
@@ -176,14 +175,15 @@ class CompanyController extends BaseController
             $em->persist($company);
             $em->flush();
 
-            // return $this->redirectToRoute('company_edit', array('id' => $company->getId()));
             return $this->redirectToRoute('company_index');
         }
 
-        return $this->render('AppBundle:Company:edit.html.twig', array(
-            'company' => $company,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        return $this->render('AppBundle:CRUD:edit.html.twig', array(
+            'entity' => $company,
+            'form' => $editForm->createView(),
+            'page_title' => $this->translator->trans('company.companies'),
+            'box_title' => $this->translator->trans('company.actions.edit.label'),
+            'path_to_list' => $this->generateUrl('comment_index')
         ));
     }
 
