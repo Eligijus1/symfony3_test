@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Eligijus Stugys
- * Date: 2016.04.03
- * Time: 10:06
- */
 
 namespace AppBundle\Entity;
 
@@ -33,16 +27,18 @@ class Company extends TimestampedEntity
     private $description;
 
     /**
-     * @var integer
+     * @var User
      *
-     * @ORM\Column(name="create_by", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $createBy;
 
     /**
-     * @var integer
+     * @var User
      *
-     * @ORM\Column(name="modify_by", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $modifyBy;
 
@@ -104,13 +100,11 @@ class Company extends TimestampedEntity
     }
 
     /**
-     * Set createBy
-     *
-     * @param integer $createBy
+     * @param User $createBy
      *
      * @return Company
      */
-    public function setCreateBy($createBy)
+    public function setCreateBy(User $createBy): Company
     {
         $this->createBy = $createBy;
 
@@ -118,23 +112,19 @@ class Company extends TimestampedEntity
     }
 
     /**
-     * Get createBy
-     *
-     * @return integer
+     * @return User|null
      */
-    public function getCreateBy()
+    public function getCreateBy(): ?User
     {
         return $this->createBy;
     }
 
     /**
-     * Set modifyBy
-     *
-     * @param integer $modifyBy
+     * @param User $modifyBy
      *
      * @return Company
      */
-    public function setModifyBy($modifyBy)
+    public function setModifyBy(?User $modifyBy): Company
     {
         $this->modifyBy = $modifyBy;
 
@@ -142,11 +132,9 @@ class Company extends TimestampedEntity
     }
 
     /**
-     * Get modifyBy
-     *
-     * @return integer
+     * @return User|null
      */
-    public function getModifyBy()
+    public function getModifyBy(): ?User
     {
         return $this->modifyBy;
     }

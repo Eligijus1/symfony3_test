@@ -38,7 +38,7 @@
                         {#<td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>#}
                         <td>{{ company.id }}</td>
                         <td>{{ company.name }}</td>
-                        <td>{{ company.createBy }}</td>
+                        <td>{{ company.createBy.getFullName }}</td>
                         <td>{% if company.createDate %}{{ company.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>{{ company.modifyBy }}</td>
                         <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>

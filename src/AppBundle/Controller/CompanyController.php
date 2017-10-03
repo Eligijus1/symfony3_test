@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\CompanyType;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
@@ -81,15 +82,17 @@ class CompanyController extends BaseController
      */
     public function newAction(Request $request)
     {
+        /** @var User $user */
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
 
+        $user = $this->getUser();
         $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Add user information:
-            //$company->setCreateBy();
+            $company->setCreateBy($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($company);
@@ -130,6 +133,8 @@ class CompanyController extends BaseController
      */
     public function showAction(Company $company)
     {
+        $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
+
         $deleteForm = $this->createDeleteForm($company);
 
         return $this->render('AppBundle:Company:show.html.twig', array(
@@ -150,11 +155,19 @@ class CompanyController extends BaseController
      */
     public function editAction(Request $request, Company $company)
     {
+        /** @var User $user */
+        $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
+
+        $user = $this->getUser();
+
         $deleteForm = $this->createDeleteForm($company);
         $editForm = $this->createForm('AppBundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $company->setModifyBy($user);
+            $company->setModifyDate(new \DateTime());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($company);
             $em->flush();

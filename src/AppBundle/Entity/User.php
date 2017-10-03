@@ -299,4 +299,14 @@ class User extends BaseUser
         $this->groups = $groups;
         return $this;
     }
+
+    /**
+     * Method responsible to return full user name.
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->getName();
+    }
 }
