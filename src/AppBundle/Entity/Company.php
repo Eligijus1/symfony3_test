@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CompanyRepository")
  */
-class Company extends TimestampedEntity
+class Company extends BaseEntity
 {
     /**
      * @var string
@@ -27,22 +27,6 @@ class Company extends TimestampedEntity
     private $description;
 
     /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $createBy;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $modifyBy;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -50,6 +34,14 @@ class Company extends TimestampedEntity
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -97,55 +89,5 @@ class Company extends TimestampedEntity
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @param User $createBy
-     *
-     * @return Company
-     */
-    public function setCreateBy(User $createBy): Company
-    {
-        $this->createBy = $createBy;
-
-        return $this;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getCreateBy(): ?User
-    {
-        return $this->createBy;
-    }
-
-    /**
-     * @param User $modifyBy
-     *
-     * @return Company
-     */
-    public function setModifyBy(?User $modifyBy): Company
-    {
-        $this->modifyBy = $modifyBy;
-
-        return $this;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getModifyBy(): ?User
-    {
-        return $this->modifyBy;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }
