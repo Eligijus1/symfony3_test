@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  */
-class Comment
+class Comment extends BaseEntity
 {
     /**
      * @var integer

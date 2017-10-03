@@ -41,7 +41,7 @@ class CommentController extends BaseController
         // Prepare query:
         $qb = $em->createQueryBuilder();
         $qb->select("entity");
-        $qb->from("\\AppBundle\\Entity\\Comment", "entity");
+        $qb->from(Comment::class, "entity");
         $query = $em->createQuery($qb->getQuery()->getDQL());
 
         // Prepare paginator:

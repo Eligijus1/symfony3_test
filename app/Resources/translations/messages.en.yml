@@ -58,3 +58,7 @@ company:
             success: "Company with id #id was successfully deleted"
             warning: "<p>You are about to delete company #<b><i class=\"title\"></i></b>, this procedure is irreversible.</p><p>Do you want to proceed?</p>"
             error: "Could not delete company: error_message"
+comment:
+    comments: Comments
+    id: ID
+    comment: Comment
