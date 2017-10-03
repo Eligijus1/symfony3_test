@@ -153,11 +153,9 @@ class CompanyController extends BaseController
                 $this->translator->trans('company.description') => $company->getDescription(),
                 $this->translator->trans('system_fields.created_by') => $company->getCreateBy()->getFullName(),
                 $this->translator->trans('system_fields.created_date') => $company->getCreateDateAsString(),
-                $this->translator->trans('system_fields.modified_by') => $company->getModifyBy()
-                    ? $company->getModifyBy()->getFullName() : null,
+                $this->translator->trans('system_fields.modified_by') => $company->getModifyByFullName(),
                 $this->translator->trans('system_fields.modify_date') => $company->getModifyDateAsString(),
             ]
-
         ));
     }
 

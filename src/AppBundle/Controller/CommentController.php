@@ -9,11 +9,8 @@ use AppBundle\Form\CommentType;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Knp\Component\Pager\Paginator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class CommentController extends BaseController
@@ -138,11 +135,18 @@ class CommentController extends BaseController
      */
     public function showAction(Comment $comment): Response
     {
-        $deleteForm = $this->createDeleteForm($comment);
-
-        return $this->render('AppBundle:comment:show.html.twig', array(
-            'comment' => $comment,
-            'delete_form' => $deleteForm->createView(),
+        return $this->render('AppBundle:CRUD:view.html.twig', array(
+            'page_title' => $this->translator->trans('comment.comments'),
+            'box_title' => $this->translator->trans('comment.actions.view.label', ['id' => $comment->getId()]),
+            'path_to_list' => $this->generateUrl('comment_index'),
+            'data' => [
+                $this->translator->trans('company.id') => $comment->getId(),
+                $this->translator->trans('company.description') => $comment->getComment(),
+                $this->translator->trans('system_fields.created_by') => $comment->getCreateBy()->getFullName(),
+                $this->translator->trans('system_fields.created_date') => $comment->getCreateDateAsString(),
+                $this->translator->trans('system_fields.modified_by') => $comment->getModifyByFullName(),
+                $this->translator->trans('system_fields.modify_date') => $comment->getModifyDateAsString(),
+            ]
         ));
     }
 
@@ -202,20 +206,5 @@ class CommentController extends BaseController
         );
 
         return $this->createSuccessResponse($this->generateUrl('comment_index'));
-    }
-
-    /**
-     * Creates a form to delete a Comment entity.
-     *
-     * @param Comment $comment The Comment entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Comment $comment)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('comment_delete', array('id' => $comment->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
     }
 }

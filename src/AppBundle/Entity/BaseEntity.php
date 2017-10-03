@@ -146,4 +146,12 @@ abstract class BaseEntity
     {
         return $this->modifyBy;
     }
+
+    /**
+     * @return string
+     */
+    public function getModifyByFullName(): string
+    {
+        return $this->modifyBy ? $this->modifyBy->getFullName() : '';
+    }
 }
