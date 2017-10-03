@@ -68,7 +68,7 @@ class MyMenuItemListListener
                 'CompaniesId',
                 'Companies',
                 'company_index',
-                [/* options */],
+                ['company_view', 'company_edit', 'company_add'],
                 'iconclasses fa fa-industry'
             );
         }
@@ -130,7 +130,7 @@ class MyMenuItemListListener
             if ($item->hasChildren()) {
                 $this->activateByRoute($route, $item->getChildren());
             } else {
-                if ($item->getRoute() == $route) {
+                if ($item->getRoute() == $route || in_array($route, $item->getRouteArgs())) {
                     $item->setIsActive(true);
                 }
             }
