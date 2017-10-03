@@ -20,6 +20,6 @@ comment_edit:
     methods: ["GET", "POST"]
 
 comment_delete:
-    path: "/delete/{id}"
+    path: "/delete/{comment}"
     defaults: {_controller: "controller.comment:deleteAction"}
     methods: ["POST"]

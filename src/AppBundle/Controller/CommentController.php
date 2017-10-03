@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Manager\CommentManager;
 use AppBundle\Entity\User;
 use AppBundle\Form\CommentType;
 use Doctrine\ORM\EntityManager;
@@ -13,15 +14,30 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class CommentController extends BaseController
 {
     /**
-     * CommentController constructor.
+     * @var TranslatorInterface
      */
-    public function __construct()
-    {
+    private $translator;
 
+    /**
+     * @var CommentManager
+     */
+    private $commentManager;
+
+    /**
+     * CompanyController constructor.
+     *
+     * @param TranslatorInterface $translator
+     * @param CommentManager      $commentManager
+     */
+    public function __construct(TranslatorInterface $translator, CommentManager $commentManager)
+    {
+        $this->translator = $translator;
+        $this->commentManager = $commentManager;
     }
 
     /**
@@ -161,23 +177,27 @@ class CommentController extends BaseController
     }
 
     /**
-     * @param Request $request
      * @param Comment $comment
      *
      * @return Response
      */
-    public function deleteAction(Request $request, Comment $comment): Response
+    public function deleteAction(Comment $comment): Response
     {
-        $form = $this->createDeleteForm($comment);
-        $form->handleRequest($request);
+        $id = $comment->getId();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($comment);
-            $em->flush();
+        try {
+            $this->commentManager->delete($comment);
+        } catch (\Throwable $e) {
+            return $this->createErrorResponse($this->translator->trans('comment.actions.delete.error',
+                ['error_message' => $e->getMessage()]));
         }
 
-        return $this->redirectToRoute('comment_index');
+        $this->addFlash(
+            'success',
+            $this->translator->trans('comment.actions.delete.success', ['id' => $id])
+        );
+
+        return $this->createSuccessResponse($this->generateUrl('comment_index'));
     }
 
     /**

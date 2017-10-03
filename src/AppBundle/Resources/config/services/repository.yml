@@ -4,3 +4,7 @@ services:
         factory: [ "@doctrine.orm.entity_manager", getRepository ]
         arguments: [AppBundle\Entity\Company]
 
+    repository.comment:
+        class: AppBundle\Entity\Repository\CommentRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [AppBundle\Entity\Comment]

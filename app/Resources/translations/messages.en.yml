@@ -55,7 +55,7 @@ company:
             label: "Edit company #id"
             success: "Successfully updated company with id #id"
         delete:
-            success: "Company with id #id was successfully deleted"
+            success: "Company #id was successfully deleted"
             warning: "<p>You are about to delete company #<b><i class=\"title\"></i></b>, this procedure is irreversible.</p><p>Do you want to proceed?</p>"
             error: "Could not delete company: error_message"
 comment:
@@ -76,6 +76,6 @@ comment:
             label: "Edit comment #id"
             success: "Successfully updated comment with id #id"
         delete:
-            success: "Comment with id #id was successfully deleted"
+            success: "Comment #id was successfully deleted."
             warning: "<p>You are about to delete comment #<b><i class=\"title\"></i></b>, this procedure is irreversible.</p><p>Do you want to proceed?</p>"
             error: "Could not delete comment: error_message"

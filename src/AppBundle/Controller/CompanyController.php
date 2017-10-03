@@ -188,12 +188,13 @@ class CompanyController extends BaseController
      *
      * @return JsonResponse
      */
-    public function deleteAction(int $id) : JsonResponse
+    public function deleteAction(int $id): JsonResponse
     {
         try {
             $this->companyManager->deleteById($id);
         } catch (\Throwable $e) {
-            return $this->createErrorResponse($this->translator->trans('company.actions.delete.error', ['error_message' => $e->getMessage()]));
+            return $this->createErrorResponse($this->translator->trans('company.actions.delete.error',
+                ['error_message' => $e->getMessage()]));
         }
 
         $this->addFlash(

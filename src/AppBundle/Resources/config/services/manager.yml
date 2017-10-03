@@ -4,3 +4,9 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@repository.company"
+
+    manager.comment:
+        class: AppBundle\Entity\Manager\CommentManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@repository.comment"

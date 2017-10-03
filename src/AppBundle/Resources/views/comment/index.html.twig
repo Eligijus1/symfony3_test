@@ -43,7 +43,7 @@
                                         class="fa fa-edit"></i> Edit</a>
 
                             <a class="btn btn-danger btn-xs" href="#" data-toggle="modal"
-                               data-ref="{{ path('comment_delete', {'id': comment.id}) }}"
+                               data-ref="{{ path('comment_delete', {'comment': comment.id}) }}"
                                data-record-title="{{ comment.id }}"
                                data-target="#confirm-delete"
                                data-message="{{ 'comment.actions.delete.warning'|trans|escape }}">
