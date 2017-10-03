@@ -65,10 +65,16 @@
                 <a class="btn btn-info btn-sm" href="{{ path('company_index') }}"><i class="fa fa-list"></i> List</a>
                 <a class="btn btn-info btn-sm" href="{{ path('company_edit', { 'company': company.id }) }}"><i
                             class="fa fa-edit"></i> Edit</a>
-                <a class="btn btn-danger btn-sm"
-                   href="#"><i class="fa fa-remove"></i> Delete</a>
+                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal"
+                   data-ref="{{ path('company_delete', {'id': company.id}) }}"
+                   data-record-title="{{ company.name }}"
+                   data-target="#confirm-delete"
+                   data-message="{{ 'company.actions.delete.warning'|trans|escape }}">
+                    <i class="fa fa-remove"></i> {{ 'actions.remove'|trans }}</a>
             </div>
         </div>
     </div>
     <!-- /.box-body -->
+
+    {% include 'AppBundle:Modal:delete_modal.html.twig' %}
 {% endblock %}
