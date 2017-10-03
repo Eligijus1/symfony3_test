@@ -93,6 +93,7 @@ class CompanyController extends BaseController
             'page_title' => $this->translator->trans('company.companies'),
             'box_title' => $this->translator->trans('company.list'),
             'path_to_view' => "company_view",
+            'path_to_add' => "company_add",
             'path_to_edit' => "company_edit",
             'path_to_delete' => "company_delete",
             'delete_warning' => 'company.actions.delete.warning',
