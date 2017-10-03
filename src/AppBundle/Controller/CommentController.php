@@ -32,10 +32,10 @@ class CommentController extends BaseController
     public function indexAction(Request $request): Response
     {
         // Define paging required variables:
-        $pageSize        = 10;
-        $pageNumber      = $request->query->getInt('page', 1);
+        $pageSize = 10;
+        $pageNumber = $request->query->getInt('page', 1);
         $pageStartRecord = ($pageNumber * $pageSize) - $pageSize + 1;
-        $pageEndRecord   = ($pageNumber * $pageSize);
+        $pageEndRecord = ($pageNumber * $pageSize);
 
         // Get entity manager:
         /** @var EntityManager $em */
@@ -58,11 +58,11 @@ class CommentController extends BaseController
         );
 
         return $this->render('AppBundle:comment:index.html.twig', array(
-            'comments'        => $pagination,
-            'pageSize'        => $pageSize,
-            'pageNumber'      => $pageNumber,
+            'comments' => $pagination,
+            'pageSize' => $pageSize,
+            'pageNumber' => $pageNumber,
             'pageStartRecord' => $pageStartRecord,
-            'pageEndRecord'   => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
+            'pageEndRecord' => $pageEndRecord > $pagination->getTotalItemCount() ? $pagination->getTotalItemCount() : $pageEndRecord
         ));
     }
 
@@ -77,7 +77,7 @@ class CommentController extends BaseController
         $user = $this->getUser();
 
         $comment = new Comment();
-        $form    = $this->createForm(CommentType::class, $comment);
+        $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -107,7 +107,7 @@ class CommentController extends BaseController
 
         return $this->render('AppBundle:comment:new.html.twig', array(
             'comment' => $comment,
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -121,7 +121,7 @@ class CommentController extends BaseController
         $deleteForm = $this->createDeleteForm($comment);
 
         return $this->render('AppBundle:comment:show.html.twig', array(
-            'comment'     => $comment,
+            'comment' => $comment,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -134,18 +134,16 @@ class CommentController extends BaseController
      */
     public function editAction(Request $request, Comment $comment): Response
     {
-//        $authorizationChecker = $this->get('security.authorization_checker');
+        /** @var User $user */
+        $user = $this->getUser();
 
-//        // Check for edit access:
-//        if (false === $authorizationChecker->isGranted('EDIT', $comment)) {
-//            throw new AccessDeniedException();
-//        }
-
-        $deleteForm = $this->createDeleteForm($comment);
-        $editForm   = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $editForm = $this->createForm(CommentType::class, $comment);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $comment->setModifyDate(new \DateTime());
+            $comment->setModifyBy($user);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
@@ -153,10 +151,12 @@ class CommentController extends BaseController
             return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
         }
 
-        return $this->render('AppBundle:comment:edit.html.twig', array(
-            'comment'     => $comment,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        return $this->render('AppBundle:CRUD:edit.html.twig', array(
+            'entity' => $comment,
+            'edit_form' => $editForm->createView(),
+            'page_title' => 'Comments',
+            'box_title' => 'Comment edit',
+            'path_to_list' => $this->generateUrl('comment_index')
         ));
     }
 
@@ -164,7 +164,7 @@ class CommentController extends BaseController
      * @param Request $request
      * @param Comment $comment
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function deleteAction(Request $request, Comment $comment): Response
     {

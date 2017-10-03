@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base-layout.html.twig' %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{ box_title }}</h3>
+                </div>
+
+                {{ form_start(edit_form) }}
+                <div class="box-body">
+                    {{ form_widget(edit_form) }}
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="pull-left box-tools">
+                        <a class="btn btn-info btn-sm" href="{{ path_to_list }}"><i class="fa fa-list"></i>
+                            {{ 'actions.list'|trans }}</a>
+                        <button type="reset" class="btn btn-warning btn-sm"><i
+                                    class="fa fa-times"></i>{{ 'actions.cancel'|trans }}</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i
+                                    class="fa fa-check-square"></i>{{ 'actions.save'|trans }}
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(edit_form) }}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
