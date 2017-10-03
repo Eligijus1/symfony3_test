@@ -126,13 +126,9 @@ class CompanyController extends BaseController
     }
 
     /**
-     * Finds and displays a Company entity.
-     *
-     * @Route("/{id}", name="company_show")
-     * @Method("GET")
      * @param Company $company
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showAction(Company $company)
     {

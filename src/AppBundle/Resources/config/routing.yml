@@ -37,6 +37,11 @@ company_edit:
     defaults: {_controller: "controller.company:newAction"}
     methods: ["GET","POST"]
 
+company_view:
+    path: "/companies/view/{company}"
+    defaults: {_controller: "controller.company:showAction"}
+    methods: ["GET"]
+
 # Rabbit routing (routing defined in controller):
 rabbit_producer_test_1:
     resource: "@AppBundle/Controller/RabbitProducerTest1Controller.php"

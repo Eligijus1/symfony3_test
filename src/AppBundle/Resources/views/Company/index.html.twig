@@ -44,7 +44,7 @@
                         <td>{% if company.modifyDate %}{{ company.modifyDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>
                             <a class="btn btn-success btn-xs"
-                               href="{{ path('company_show', { 'id': company.id }) }}"><i class="fa fa-eye"></i>
+                               href="{{ path('company_view', { 'company': company.id }) }}"><i class="fa fa-eye"></i>
                                 View</a>
                             <a class="btn btn-info btn-xs"
                                href="{{ path('company_edit', { 'id': company.id }) }}"><i
