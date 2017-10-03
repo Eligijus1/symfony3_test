@@ -1,0 +1,6 @@
+services:
+    manager.company:
+        class: AppBundle\Entity\Manager\CompanyManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@repository.company"

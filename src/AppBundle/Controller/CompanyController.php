@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Company;
+use AppBundle\Entity\Manager\CompanyManager;
 use AppBundle\Entity\User;
 use AppBundle\Form\CompanyType;
 use Doctrine\ORM\EntityManager;
@@ -11,27 +13,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Company;
-use AppBundle\Entity\Manager\CompanyManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\TranslatorInterface;
 
-/**
- * Company controller.
- *
- * @Route("/company")
- */
 class CompanyController extends BaseController
 {
     /**
-     * Lists all Company entities.
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * CompanyController constructor.
      *
-     * @Route("/", name="company_index")
-     * @Method("GET")
-     *
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_CAN_VIEW_COMPANIES');
 
@@ -48,7 +55,7 @@ class CompanyController extends BaseController
         // Prepare query:
         $qb = $em->createQueryBuilder();
         $qb->select("entity");
-        $qb->from("\\AppBundle\\Entity\\Company", "entity");
+        $qb->from(Company::class, "entity");
         $query = $em->createQuery($qb->getQuery()->getDQL());
 
         // Prepare paginator:
@@ -72,15 +79,11 @@ class CompanyController extends BaseController
     }
 
     /**
-     * Creates a new Company entity.
-     *
-     * @Route("/new", name="company_new")
-     * @Method({"GET", "POST"})
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request): Response
     {
         /** @var User $user */
         $this->denyAccessUnlessGranted('ROLE_CAN_MANAGE_COMPANIES');
@@ -192,19 +195,17 @@ class CompanyController extends BaseController
      */
     public function deleteAction(int $id) : JsonResponse
     {
-        $translator = $this->get('translator');
-
         try {
             /** @var CompanyManager $companyManager */
             $companyManager = $this->get('manager.company');
             $companyManager->deleteById($id);
         } catch (\Throwable $e) {
-            return $this->createErrorResponse($translator->trans('price_rule_names.actions.delete.error'));
+            return $this->createErrorResponse($this->translator->trans('price_rule_names.actions.delete.error'));
         }
 
         $this->addFlash(
             'success',
-            $translator->trans('price_rule_names.actions.delete.success', ['name_id' => $id])
+            $this->translator->trans('price_rule_names.actions.delete.success', ['name_id' => $id])
         );
 
         return $this->createSuccessResponse($this->generateUrl('company_index'));

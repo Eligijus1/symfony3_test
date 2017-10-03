@@ -20,9 +20,22 @@ comments:
     type:     annotation
 
 # Companies routing (routing defined in controller):
-companies:
-    resource: "@AppBundle/Controller/CompanyController.php"
-    type:     annotation
+company_index:
+    path: "/companies"
+    defaults: {_controller: "controller.company:indexAction"}
+    methods: ["GET"]
+#    requirements:
+#        inventoryId: '\d+'
+
+company_add:
+    path: "/companies/add"
+    defaults: {_controller: "controller.company:newAction"}
+    methods: ["GET", "POST"]
+
+company_edit:
+    path: "/companies/edit"
+    defaults: {_controller: "controller.company:newAction"}
+    methods: ["GET","POST"]
 
 # Rabbit routing (routing defined in controller):
 rabbit_producer_test_1:

@@ -1,0 +1,6 @@
+services:
+   controller.company:
+        class: AppBundle\Controller\CompanyController
+        arguments:
+          - '@translator.default'
+

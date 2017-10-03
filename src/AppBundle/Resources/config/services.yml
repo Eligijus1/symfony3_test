@@ -1,3 +1,7 @@
+imports:
+    - { resource: 'services/controller.yml' }
+    - { resource: 'services/repository.yml' }
+
 parameters:
     my_admin_bundle.show_user_listener.class: AppBundle\EventListener\MyShowUserListener
     my_admin_bundle.menu_listener.class: AppBundle\EventListener\MyMenuItemListListener
@@ -24,19 +28,3 @@ services:
             - "@security.authorization_checker"
         tags:
             - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
-
-    # BEGIN managers
-    manager.company:
-        class: AppBundle\Entity\Manager\CompanyManager
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@repository.company"
-    # END managers
-
-    # BEGIN Repository
-    repository.company:
-        class: AppBundle\Entity\Repository\CompanyRepository
-        factory: [ "@doctrine.orm.entity_manager", getRepository ]
-        arguments: [AppBundle\Entity\Company]
-    # END Repository
-

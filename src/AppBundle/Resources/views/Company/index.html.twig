@@ -12,7 +12,7 @@
             <h3 class="box-title">{{ 'company.list'|trans }}</h3>
             {% if is_granted('ROLE_CAN_MANAGE_COMPANIES') %}
                 <div class="pull-right box-tools">
-                    <a class="btn btn-info btn-sm" href="{{ path('company_new') }}"><i class="fa fa-plus"></i>
+                    <a class="btn btn-info btn-sm" href="{{ path('company_add') }}"><i class="fa fa-plus"></i>
                         New</a>
                 </div>
             {% endif %}

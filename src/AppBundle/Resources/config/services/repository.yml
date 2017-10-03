@@ -1,0 +1,6 @@
+services:
+    repository.company:
+        class: AppBundle\Entity\Repository\CompanyRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments: [AppBundle\Entity\Company]
+
