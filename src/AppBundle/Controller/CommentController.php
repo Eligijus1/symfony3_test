@@ -121,9 +121,13 @@ class CommentController extends BaseController
             return $this->redirectToRoute('comment_index');
         }
 
-        return $this->render('AppBundle:comment:new.html.twig', array(
-            'comment' => $comment,
+        return $this->render('AppBundle:CRUD:new.html.twig', array(
+            'entity' => $comment,
             'form' => $form->createView(),
+            'page_title' => 'Comments',
+            'box_title' => 'Comment create',
+            'path_to_list' => $this->generateUrl('comment_index')
+
         ));
     }
 
@@ -164,12 +168,12 @@ class CommentController extends BaseController
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
+            return $this->redirectToRoute('comment_index');
         }
 
         return $this->render('AppBundle:CRUD:edit.html.twig', array(
             'entity' => $comment,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'page_title' => 'Comments',
             'box_title' => 'Comment edit',
             'path_to_list' => $this->generateUrl('comment_index')
